@@ -60,7 +60,12 @@ var controller = new ScrollMagic();
 			
 			function ladybirdUpdate(){
 				console.log('ladybirdUpdate');
+				
 			}
+			
+			// function boo(){
+				// console.log('boo');
+			// }
 			
 			function wobbleTitle(){
 				TweenMax.staggerFromTo(title, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
@@ -75,13 +80,23 @@ var controller = new ScrollMagic();
 				ladybird = $('#cover .ladybird'),
 				animals = $('#cover .animal');
 			
+			//TweenMax.ticker.addEventListener("tick", boo, this, true, 1);
+			
 			var t = new TimelineMax({delay:1.5})
 				
 				.addCallback(wobbleTitle, 0.9)
 				.add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
-				.add(TweenMax.from(ladybird, 0.01, {display:'block'}))
+				//.add(TweenMax.from(ladybird, 0.01, {display:'block'}))
+				.set(ladybird, {display:'block'})
 				.add(TweenMax.from(ladybird, 4, {display:'block', bezier:{values:ladybirdPath}, onUpdate:ladybirdUpdate}))
+				
 				.add(TweenMax.staggerTo(animals, 0.2, {margin:0, ease:Back.easeOut}, 0.1))
+				
+			var dashes = new TimelineMax({paused:true});
+			for (i = 0; i < 30; i++){
+				var dash =$('<div class="dash"/>').appendTo('#cover');
+				dashes.to(dash, 2.5, {bezier:{values:ladybirdPath}}, 3);
+			}
 		}
 
 		cover();
