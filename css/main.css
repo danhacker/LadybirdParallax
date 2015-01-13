@@ -105,36 +105,39 @@ textarea {
 	#cover .ladybird{width:36px; height:35px;background:url(../img/cover/ladybird.png) no-repeat; background-size:100%;display:none;}
 	
 	#cover .whatword {width:284px;text-align:center;margin-left:auto;margin-right:auto;margin-top:10%;}
-	#cover .whatword div{height:126px;display:inline-block;position:relative;box-sizing:border-box;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;}
-	#cover .whatword .w{background:url(../img/cover/whatw.png) no-repeat;width:120px;box-sizing:border-box;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;}
-	#cover .whatword .h{background:url(../img/cover/whath.png) no-repeat;width:51px;box-sizing:border-box;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;}
-	#cover .whatword .a{background:url(../img/cover/whata.png) no-repeat;width:46px;box-sizing:border-box;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;}
-	#cover .whatword .t{background:url(../img/cover/whatt.png) no-repeat;width:52px;box-sizing:border-box;-webkit-box-sizing: border-box;-moz-box-sizing:border-box;}
+	#cover .whatword div{height:126px;display:inline-block;position:relative;}
+	#cover .whatword .w{background:url(../img/cover/whatw.png) no-repeat;width:120px;}
+	#cover .whatword .h{background:url(../img/cover/whath.png) no-repeat;width:51px;}
+	#cover .whatword .a{background:url(../img/cover/whata.png) no-repeat;width:46px;}
+	#cover .whatword .t{background:url(../img/cover/whatt.png) no-repeat;width:52px;}
 	
 	#cover .theword {height:61px;width:94px;background:url(../img/cover/the.png) no-repeat;background-size:100%;margin-left:auto;margin-right:auto;position:relative;}
 
 	#cover .ladybirdword{width:505px; text-align:center;margin-left:auto;margin-right:auto}
 	#cover .ladybirdword>div{height:165px;display:inline-block;position:relative;}
-	#cover .ladybirdword .l{background:url(../img/cover/ladybirdl.png) no-repeat;background-size:100%; width:83px;}
-	#cover .ladybirdword .a{background:url(../img/cover/ladybirda.png) no-repeat;background-size:100%; width:59px;}
-	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd.png) no-repeat;background-size:100%; width:58px;}
-	#cover .ladybirdword .y{background:url(../img/cover/ladybirdy.png) no-repeat;background-size:100%; width:48px;}
-	#cover .ladybirdword .b{background:url(../img/cover/ladybirdb.png) no-repeat;background-size:100%; width:58px;}
-	#cover .ladybirdword .i{background:url(../img/cover/ladybirdi.png) no-repeat;background-size:100%; width:27px;}
-	#cover .ladybirdword .r{background:url(../img/cover/ladybirdr.png) no-repeat;background-size:100%; width:53px;}
-	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd2.png) no-repeat;background-size:100%; width:72px;}
+	#cover .ladybirdword .l{background:url(../img/cover/ladybirdl.png) no-repeat;width:83px;}
+	#cover .ladybirdword .a{background:url(../img/cover/ladybirda.png) no-repeat;width:59px;}
+	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd.png) no-repeat;width:58px;}
+	#cover .ladybirdword .y{background:url(../img/cover/ladybirdy.png) no-repeat;width:48px;}
+	#cover .ladybirdword .b{background:url(../img/cover/ladybirdb.png) no-repeat;width:58px;}
+	#cover .ladybirdword .i{background:url(../img/cover/ladybirdi.png) no-repeat;width:27px;}
+	#cover .ladybirdword .r{background:url(../img/cover/ladybirdr.png) no-repeat;width:53px;}
+	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd2.png) no-repeat;width:72px;}
 
 	#cover .heardword{width:286px; text-align:center;margin-left:auto;margin-right:auto}
 	#cover .heardword div{height:120px;display:inline-block;position:relative;}
-	#cover .heardword .h{background:url(../img/cover/heardh.png) no-repeat;background-size:100%; width:75px;}
-	#cover .heardword .e{background:url(../img/cover/hearde.png) no-repeat;background-size:100%; width:45px;}
-	#cover .heardword .a{background:url(../img/cover/hearda.png) no-repeat;background-size:100%; width:43px;}
-	#cover .heardword .r{background:url(../img/cover/heardr.png) no-repeat;background-size:100%; width:52px;}
-	#cover .heardword .d{background:url(../img/cover/heardd.png) no-repeat;background-size:100%; width:53px;}
+	#cover .heardword .h{background:url(../img/cover/heardh.png) no-repeat;width:75px;}
+	#cover .heardword .e{background:url(../img/cover/hearde.png) no-repeat;width:45px;}
+	#cover .heardword .a{background:url(../img/cover/hearda.png) no-repeat;width:43px;}
+	#cover .heardword .r{background:url(../img/cover/heardr.png) no-repeat;width:52px;}
+	#cover .heardword .d{background:url(../img/cover/heardd.png) no-repeat;width:53px;}
 	
-	#cover .goose{background:url(../img/cover/goose.png) no-repeat; background-size:100%; height:63px; width:99px;position:absolute;top:32px;right:0}
-	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; background-size:100%; height:207px; width:162px;position:absolute;top:108px;right:0}
-	#cover .horse{background:url(../img/cover/horse.png) no-repeat; background-size:100%; height:203px; width:149px;position:absolute;top:400px;right:0}
+	#cover .goose{background:url(../img/cover/goose.png) no-repeat; height:63px; width:99px;position:absolute;top:32px;right:0}
+	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; height:207px; width:162px;position:absolute;top:108px;right:0}
+	#cover .horse{background:url(../img/cover/horse.png) no-repeat; height:203px; width:149px;position:absolute;top:400px;right:0}
+	#cover .duck{background:url(../img/cover/duck.png) no-repeat; height:87px; width:83px;position:absolute;top:0;left:0}
+	#cover .cow{background:url(../img/cover/cow.png) no-repeat; height:205px; width:175px;position:absolute;top:120px;left:0}
+	#cover .pig{background:url(../img/cover/pig.png) no-repeat; height:192px; width:113px;position:absolute;top:400px;left:0}
 	
 	
 
