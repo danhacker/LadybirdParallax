@@ -98,7 +98,7 @@ textarea {
    ========================================================================== */
 
 
-	body{background:url(../img/cover/bgYellow.png) #FDE135;width:100%;}
+	body{background:url(../img/cover/bgYellow.png) #FDE135;width:100%;overflow-x:hidden;}
 			
 	#cover{width:100%;height:768px;border:1px solid black;}
 	
@@ -132,12 +132,13 @@ textarea {
 	#cover .heardword .r{background:url(../img/cover/heardr.png) no-repeat;width:52px;}
 	#cover .heardword .d{background:url(../img/cover/heardd.png) no-repeat;width:53px;}
 	
-	#cover .goose{background:url(../img/cover/goose.png) no-repeat; height:63px; width:99px;position:absolute;top:32px;right:0}
-	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; height:207px; width:162px;position:absolute;top:108px;right:0}
-	#cover .horse{background:url(../img/cover/horse.png) no-repeat; height:203px; width:149px;position:absolute;top:400px;right:0}
-	#cover .duck{background:url(../img/cover/duck.png) no-repeat; height:87px; width:83px;position:absolute;top:0;left:0}
-	#cover .cow{background:url(../img/cover/cow.png) no-repeat; height:205px; width:175px;position:absolute;top:120px;left:0}
-	#cover .pig{background:url(../img/cover/pig.png) no-repeat; height:192px; width:113px;position:absolute;top:400px;left:0}
+	#cover .goose{background:url(../img/cover/goose.png) no-repeat; height:63px; width:99px;position:absolute;top:32px;right:0;margin-right:-99px;}
+	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; height:207px; width:162px;position:absolute;top:108px;right:0;margin-right:-162px}
+	#cover .horse{background:url(../img/cover/horse.png) no-repeat; height:203px; width:149px;position:absolute;top:400px;right:0;margin-right:-149px}
+	#cover .duck{background:url(../img/cover/duck.png) no-repeat; height:87px; width:83px;position:absolute;top:0;left:0;margin-left:-83px;}
+	#cover .cow{background:url(../img/cover/cow.png) no-repeat; height:205px; width:175px;position:absolute;top:120px;left:0;margin-left:-175px;}
+	#cover .pig{background:url(../img/cover/pig.png) no-repeat; height:192px; width:113px;position:absolute;top:400px;left:0;margin-left:-113px}
+	
 	
 	
 
