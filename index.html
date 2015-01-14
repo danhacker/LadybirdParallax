@@ -41,7 +41,7 @@
 						<div class="d"></div>
 						<div class="y"></div>
 						<div class="b"></div>
-						<div class="i"><div class="ladybird"></div></div>
+						<div class="i"></div>
 						<div class="r"></div>
 						<div class="d"></div>
 					</div>
@@ -60,9 +60,37 @@
 					<div class="animal duck"></div>
 					<div class="animal cow"></div>
 					<div class="animal pig"></div>
-				
+					
+				<div class="ladybird"></div>
 					<svg viewBox="0 0 1100 400">
-						<path id="a" d="M 60 10 L 120 20 M 140 40 L 150 90" fill="green" stroke="black" stroke-width="3"/>
+					<path id="trailPath1" fill="none" stroke="#000000" stroke-miterlimit="10" d="" />
+						
+						
+						<!--polyline id="trailPath" fill="none" stroke="blue" stroke-width="4" stroke-miterlimit="500" /-->
+						<!--
+							M = move (absolute coords)
+							m = move (relative coords. relative to the last command/current point)
+							L = lineTo. needs x/y coords. eg. L 200 400
+							l = straight line from current location
+							H = Horizontal line followed by x coord: H 40
+							V = Vertical line followed by y coord: V 100
+							
+							curves:
+							http://www.svgbasics.com/curves.html
+							A & C = start & end points
+							B = control point
+							D & E = half way between AB and BC respectively
+							F = midpoint of DE
+							z = close path
+							c = control (3 coords. start control point, end control point, final point we're drawing
+							
+						-->
+						
+						<!-- <path id="trailPath" fill="none" stroke="#000000" stroke-miterlimit="10" d="M10,10c30.968,30.323,59.354,120,121.29,73.548
+	s105.807-20,117.419,18.064s124.516-5.162,151.613-8.387s147.743,49.033,70.323,103.226S216.451,330,197.742,261.613
+	c-18.709-68.387,1.936-114.838-69.677-84.516S80.323,392.023,23.548,288.109"/>
+	<path id="tp2" fill="none" stroke="blue" d="" /> -->
+						<path id="a" d="M 60 10 L 120 20 M 140 40 L 150 90" stroke="green" stroke-width="3"/>
 					</svg
 				</div>
 		</div>
@@ -70,7 +98,8 @@
         <script src="js/vendor/jquery-1.11.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 		
-		<script src="js/vendor/TweenMax.min.js"></script>
+		<script src="js/vendor/TweenMax.js"></script>
+		<script src="js/vendor/DrawSVGPlugin.js"></script>
 		<script src="js/vendor/jquery.scrollmagic.min.js"></script>
 		<script src="js/vendor/jquery.scrollmagic.debug.js"></script>
 		
