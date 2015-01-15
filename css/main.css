@@ -130,21 +130,15 @@ textarea {
 	#cover .heardword .r{background:url(../img/cover/heardr.png) no-repeat;width:52px;}
 	#cover .heardword .d{background:url(../img/cover/heardd.png) no-repeat;width:53px;}
 	
-	#cover .ladybird{width:36px; height:35px;background:url(../img/cover/ladybird.png) no-repeat;position:absolute;top:20px;left:600px}
-	#cover svg{position:absolute;top:20px;border:1px solid green;}
+	#cover .ladybird{width:36px; height:35px;background:url(../img/cover/ladybird.png) no-repeat;position:absolute;top:-17px;left:605px;display:none;z-index:1;}
+	#cover svg{position:absolute;top:20px;right:0;}
+	#cover .flightPath{}
 	#cover .goose{background:url(../img/cover/goose.png) no-repeat; height:63px; width:99px;position:absolute;top:32px;right:0;margin-right:-99px;}
 	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; height:207px; width:162px;position:absolute;top:108px;right:0;margin-right:-162px}
 	#cover .horse{background:url(../img/cover/horse.png) no-repeat; height:203px; width:149px;position:absolute;top:400px;right:0;margin-right:-149px}
 	#cover .duck{background:url(../img/cover/duck.png) no-repeat; height:87px; width:83px;position:absolute;top:0;left:0;margin-left:-83px;}
 	#cover .cow{background:url(../img/cover/cow.png) no-repeat; height:205px; width:175px;position:absolute;top:120px;left:0;margin-left:-175px;}
 	#cover .pig{background:url(../img/cover/pig.png) no-repeat; height:192px; width:113px;position:absolute;top:400px;left:0;margin-left:-113px}
-	#cover svg{border:2px solid purple;right:0;}
-	
-	
-	
-
-
-
 
 
 
