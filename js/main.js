@@ -75,13 +75,37 @@ var controller = new ScrollMagic();
 				});
 			}
 			
-			var ladybirdPath = [{x:62, y:44}, {x:225, y:70}, {x:210, y:85}, {x:190, y:75}, {x:206, y:62}, {x:480, y:130}],
-				trailPath = "62,44 225,70 210,85 190,75 206,62 480,130",
+			//var ladybirdPath = [{x:62, y:44}, {x:225, y:70}, {x:210, y:85}, {x:190, y:75}, {x:206, y:62}, {x:480, y:130}],
+				//trailPath = "62,44 225,70 210,85 190,75 206,62 480,130",
 				title = $('#cover .whatword>div, #cover .theword, #cover .ladybirdword>div, #cover .heardword>div'),
 				ladybird = $('#cover .ladybird'),
 				animals = $('#cover .animal');
 			
-			var path = BezierPlugin.bezierThrough(ladybirdPath);
+			//var ladybirdPathData = [640,0, -25,-4, -63,25, -99,76], //, -78, 114, -59, 118, -99, 134, -47, 21, -65, -34, -21, -44, 44, -10, 40, 36, 24, 70, -18, 40, -19,44, -42, 61, -34, 26, -69, -24, -69, -24],
+			//var ladybirdPathData = [0,0, -615,-4, -577,-25, -541,-76], //, -78, 114, -59, 118, -99, 134, -47, 21, -65, -34, -21, -44, 44, -10, 40, 36, 24, 70, -18,
+ //40, -19,44, -42, 61, -34, 26, -69, -24, -69, -24],
+ 
+			//var ladybirdPathData= [0,0, -25,-4, -63,25, -99,76, -78,114,       -137,117, -137,117, -175,134, -125,155, -143,83],
+			var ladybirdPathData= [ 
+									-25,-4,   -63,25, -99,76,   -78,114,
+									-137,231, -175,248, -125,135,
+									-190,101, -146,91, -81,125],
+			//m 640,1 c -24,-4 -63,25 -99,76 -78,114 -59,117 -97,134 -47,21 -65,-34 -21,-44 44,-10 40,36 24, 70 -18,40 -19,44 -42,61 -34,26 -69,-24 -69,-24
+			//d="m 640,1 c-25,-4 -63,25 -99,76 -78,114 -59,117 -97,134 -47,21 -65,-34 -21,-44 44,-10 40,36 24,70 -18,40 -19,44 -42,61 -34,26 -69,-24 -69,-24"
+ 
+			points =[],
+			pointsString = "";
+			
+			for (var i = 0; i < ladybirdPathData.length; i +=2){
+				var point = {};
+				point.x = ladybirdPathData[i];
+				point.y = ladybirdPathData[i+1];
+				 
+				points.push(point);
+				pointsString += '{x:' + point.x + ', y:' + point.y + '},'
+			}
+			console.log(pointsString);
+			//var path = BezierPlugin.bezierThrough(ladybirdPath);
 			//console.log(path);
 			//console.log(path.x.length);
 			//console.log({bezier:ladybirdPath});
@@ -114,10 +138,13 @@ var controller = new ScrollMagic();
 				//.addCallback(wobbleTitle, 0.9)
 				.add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
 				//.add(TweenMax.from(ladybird, 0.01, {display:'block'}))
-				.add(TweenMax.fromTo($('#tp, circle'), 3, {drawSVG:'0%'}, {drawSVG:'100%'}))
 				.set(ladybird, {display:'block'})
+				//.add(TweenMax.from(ladybird, 3, {display:'block', bezier:ladybirdPath, onUpdate:ladybirdUpdate}))
+				.add(TweenMax.to(ladybird, 3, {display:'block', bezier:{type:'cubic', values:points}, onUpdate:ladybirdUpdate}))
+				.fromTo($('#tp, circle'), 3, {drawSVG:'0%'}, {drawSVG:'100%'}, '-=3')
 				
-				.add(TweenMax.from(ladybird, 4, {display:'block', bezier:ladybirdPath, onUpdate:ladybirdUpdate}))
+				
+				
 				//.add(TweenMax.fromTo($('#trailPath'), 1, {drawSVG:'0%'}, {drawSVG:'100%'}))
 					
 				.add(TweenMax.staggerTo(animals, 0.2, {margin:0, ease:Back.easeOut}, 0.1))

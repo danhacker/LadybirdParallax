@@ -130,7 +130,7 @@ textarea {
 	#cover .heardword .r{background:url(../img/cover/heardr.png) no-repeat;width:52px;}
 	#cover .heardword .d{background:url(../img/cover/heardd.png) no-repeat;width:53px;}
 	
-	#cover .ladybird{width:36px; height:35px;background:url(../img/cover/ladybird.png) no-repeat;position:absolute;top:20px;left:100px}
+	#cover .ladybird{width:36px; height:35px;background:url(../img/cover/ladybird.png) no-repeat;position:absolute;top:20px;left:600px}
 	#cover svg{position:absolute;top:20px;border:1px solid green;}
 	#cover .goose{background:url(../img/cover/goose.png) no-repeat; height:63px; width:99px;position:absolute;top:32px;right:0;margin-right:-99px;}
 	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; height:207px; width:162px;position:absolute;top:108px;right:0;margin-right:-162px}
