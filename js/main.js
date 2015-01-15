@@ -81,33 +81,31 @@ var controller = new ScrollMagic();
 				ladybird = $('#cover .ladybird'),
 				animals = $('#cover .animal');
 			
-			alert('use Raphael passing BezierPlugin.bezierThrough([path])?');
-			alert('see http://tutorials.jenkov.com/svg/path-element.html')
 			var path = BezierPlugin.bezierThrough(ladybirdPath);
-			console.log(path);
-			console.log(path.x.length);
+			//console.log(path);
+			//console.log(path.x.length);
 			//console.log({bezier:ladybirdPath});
 			//$('#trailPath').attr('points', {bezier:{values:trailPath}});
 			//var d = 'M' = path.x[0].a + ' ' + path.y[0].a;
-			 for (i = 0; i < path.x.length; i++){
-				console.log(i);
-				var Qx = BezierPlugin.cubicToQuadratic(path.x[i].a, path.x[i].ba, path.x[i].ca, path.x[i].d);
-				var Qy = BezierPlugin.cubicToQuadratic(path.y[i].a, path.y[i].ba, path.y[i].ca, path.y[i].d);
-				console.log('Qx:', Qx, 'length: ' + Qx.length);
-				for(j = 0; j < Qx.length; j++){
-					console.log('Qx[' + i + ']', Qx[j]);
-					var d = 'M' + Qx[j].a.toFixed(0) + ',' + Qy[j].a.toFixed(0) + ' Q' + Qx[j].b.toFixed(0) + ',' + Qy[j].b.toFixed(0) + ' ' + Qx[j].c.toFixed(0) + ',' + Qy[j].c.toFixed(0);
-					$('svg').append('<path id="p' + i+j + '" d="' + d + '" stroke="red" stroke-width="5" />')
-				}
-				console.log('done');
+			// for (i = 0; i < path.x.length; i++){
+			//	console.log(i);
+			//	var Qx = BezierPlugin.cubicToQuadratic(path.x[i].a, path.x[i].ba, path.x[i].ca, path.x[i].d);
+			//	var Qy = BezierPlugin.cubicToQuadratic(path.y[i].a, path.y[i].ba, path.y[i].ca, path.y[i].d);
+			//	console.log('Qx:', Qx, 'length: ' + Qx.length);
+			//	for(j = 0; j < Qx.length; j++){
+			//		console.log('Qx[' + i + ']', Qx[j]);
+			//		var d = 'M' + Qx[j].a.toFixed(0) + ',' + Qy[j].a.toFixed(0) + ' Q' + Qx[j].b.toFixed(0) + ',' + Qy[j].b.toFixed(0) + ' ' + Qx[j].c.toFixed(0) + ',' + Qy[j].c.toFixed(0);
+			//		$('svg').append('<path id="p' + i+j + '" d="' + d + '" stroke="red" stroke-width="5" />')
+			//	}
+			//	console.log('done');
 				//$('#trailPath' +i).attr('d', 'M' + Qx.a + ',' + Qy.a + ' Q' + Qx.b + ',' + Qy.b + ' ' + Qx.c + ',' + Qy.c)
 				
 				// d = ' q ' path[i].x + ' ' + path[i].y
 				// $('#trailPath' +i).attr('d', 'M' + path.x[i].a + ',' + path.y[i].a + ' c' + path.x[i].ba + ',' + path.y[i].ba + ' ' + path.x[i].da + ',' + path.y[i].da + ' ' + path.x[i].d + ',' + path.y[i].d)
 				
-			}
-			console.log('really done');
-			TweenMax.fromTo($('#trailPath'), 2, {drawSVG:'0%'}, {drawSVG:'100%'});
+			//}
+			//console.log('really done');
+			
 			
 			//TweenMax.ticker.addEventListener("tick", boo, this, true, 1);
 			
@@ -116,10 +114,12 @@ var controller = new ScrollMagic();
 				//.addCallback(wobbleTitle, 0.9)
 				.add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
 				//.add(TweenMax.from(ladybird, 0.01, {display:'block'}))
+				.add(TweenMax.fromTo($('#tp, circle'), 3, {drawSVG:'0%'}, {drawSVG:'100%'}))
 				.set(ladybird, {display:'block'})
+				
 				.add(TweenMax.from(ladybird, 4, {display:'block', bezier:ladybirdPath, onUpdate:ladybirdUpdate}))
 				//.add(TweenMax.fromTo($('#trailPath'), 1, {drawSVG:'0%'}, {drawSVG:'100%'}))
-				
+					
 				.add(TweenMax.staggerTo(animals, 0.2, {margin:0, ease:Back.easeOut}, 0.1))
 		}
 

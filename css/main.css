@@ -138,7 +138,7 @@ textarea {
 	#cover .duck{background:url(../img/cover/duck.png) no-repeat; height:87px; width:83px;position:absolute;top:0;left:0;margin-left:-83px;}
 	#cover .cow{background:url(../img/cover/cow.png) no-repeat; height:205px; width:175px;position:absolute;top:120px;left:0;margin-left:-175px;}
 	#cover .pig{background:url(../img/cover/pig.png) no-repeat; height:192px; width:113px;position:absolute;top:400px;left:0;margin-left:-113px}
-	#cover .dash{width:40px; height:3px; background:blue;position:absolute;}
+	#cover svg{border:2px solid purple;right:0;}
 	
 	
 	
