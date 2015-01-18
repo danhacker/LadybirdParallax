@@ -77,7 +77,8 @@ var controller = new ScrollMagic();
 				});
 			}
 			
-			title = $('#cover .whatword>div, #cover .theword, #cover .ladybirdword>div, #cover .heardword>div'),
+			//title = $('#cover .whatword>div, #cover .theword, #cover .ladybirdword>div, #cover .heardword>div'),
+			title = $('#cover .letter')
 			ladybird = $('#cover .ladybird'),
 			animals = $('#cover .animal'),
 			flightPath = $('#cover .flightPath');
@@ -85,21 +86,22 @@ var controller = new ScrollMagic();
 			var data = Snap.path.toCubic(flightPath.attr('d'))
 			    dataLength = data.length,
 			    points = [], //holds our series of x/y values for anchors and control points,
-			    pointsString = data.toString();
+			    pointsString = data.toString(),
+				zoom = 3; //orig svg 100, viewbox 300
 
 			// convert cubic data to GSAP bezier
 			for (var i = 0; i < dataLength; i++) {
 			  var seg = data[i];
 			  if (seg[0] === "M") { // move (starts the path)
 			    var point = {};
-			    point.x = seg[1];
-			    point.y = seg[2];
+			    point.x = seg[1] * zoom;
+			    point.y = seg[2] * zoom;
 			    points.push(point);
 			  } else { // seg[0] === "C" (Snap.path.toCubic should return only curves after first point)
 			    for (var j = 1; j < 6; j+=2) {
 			      var point = {};
-			      point.x = seg[j];
-			      point.y = seg[j+1];
+			      point.x = seg[j] * zoom;
+			      point.y = seg[j+1] * zoom;
 			      points.push(point);
 			    }
 			  }
@@ -110,7 +112,8 @@ var controller = new ScrollMagic();
 				$(temp).attr('class', 'flightPath').appendTo('#cover svg');
 			}
 				
-			t.addCallback(wobbleTitle, 0.9)
+			t
+			  .addCallback(wobbleTitle, 0.9)
 			 .add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
 			
 			for (var i=0; i<=24; i++){
@@ -122,7 +125,7 @@ var controller = new ScrollMagic();
 				t.add(TweenMax.fromTo($('#cover .flightPath').eq(i), time, {drawSVG:start}, {drawSVG:end, ease:Power0.easeOut}));
 			}
 		
-			t.set(ladybird, {display:'block', x:points[0].x, y:points[0].y}, '-=2.2')
+			t.set(ladybird, {visibility:'visible', x:points[0].x, y:points[0].y}, '-=2.2')
 			 .to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, onComplete:ladybirdComplete, ease:Power0.easeOut}, '-=2.2')
 			 .staggerTo(animals, 0.2, {margin:0, ease:Back.easeOut}, 0.1);
 			t.play();
