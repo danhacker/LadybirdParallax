@@ -58,6 +58,26 @@ var controller = new ScrollMagic();
 		
 		function cover(){
 			
+			var audio = $('#animals')[0];
+			
+			$('#cover .animal').click(function(){
+				console.log($(this));
+				var $this = $(this);
+				var animal = $this.attr('class').substr(7, $this.attr('class').length);
+				
+				var start = $this.data('audiostart');
+				var length = $this.data('audiolength') * 1000;
+				console.log(audio, animal, start, length);
+				
+				audio.currentTime = start;
+				audio.play();
+				setTimeout(function(){
+					console.log('pause');
+					audio.pause();
+				}, length);
+				
+			});
+			
 			var t = new TimelineMax({delay:1.5, paused:true})
 				
 			function ladybirdComplete(){
