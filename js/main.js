@@ -7,13 +7,14 @@ var controller = new ScrollMagic();
 			this.html(elNewHtml);
 			return this;
 		}
+		
 		$.fn.wrapWords = function(){
 			console.log('wrapWords:', this);
 			var elCharArray = $(this.text().split(' ')).map(function(i,o){return '<span>' + o + '</span>';})
 			var elNewHtml = elCharArray.toArray().join(' ');//.replace(/ /g, '\u00a0')
 			this.html(elNewHtml);
 			return this;
-		}
+		}	
 		
 		$.fn.shuffleElements = function() {
  
@@ -56,8 +57,8 @@ var controller = new ScrollMagic();
 		}
 		
 		function cover(){
-						
-			var audio = $('#animals')[0];
+			
+			var audio = $('#animalSounds')[0];
 			
 			$('#cover .animal').click(function(){
 				console.log($(this));
@@ -69,27 +70,42 @@ var controller = new ScrollMagic();
 				console.log(audio, animal, start, length);
 				
 				audio.currentTime = start;
+				var ta = new TimelineMax()
+				ta
+					.to($this, 0.2, {scale:1.5, ease:Back.easeIn})
+					.to($this, 0.5, {scale:1, ease:Bounce.easeOut},'0.2' );
+					
+				if ($this.is('.hen')){
+					var $egg = $('#cover .egg');
+					TweenMax.fromTo($egg, 0.3, {opacity:1, rotation:0, top:690, left:'50%'}, {top:'+=37', ease:Bounce.easeOut});
+					TweenMax.to($egg, 1.5, {left:'+=200'});
+					TweenMax.to($egg, 1.5, {rotation:340});
+					TweenMax.to($egg, 0.5, {opacity:0, delay:2.5});
+					
+				}
 				audio.play();
 				setTimeout(function(){
-					console.log('pause');
+					
 					audio.pause();
 				}, length);
 				
 			});
 			
-			var t = new TimelineMax(); //{delay:1.5, paused:true})
+			var t = new TimelineMax({delay:0.25, paused:true})
 						
 			function wobbleTitle(){
-				TweenMax.staggerFromTo(title, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
-				TweenMax.set(title, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
-				$.each(title, function(i, o){
-					TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
-				});
+				// TweenMax.staggerFromTo(title, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
+				// TweenMax.set(title, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
+				// $.each(title, function(i, o){
+					// TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
+				// });
 			}
 			
 			title = $('#cover .letter')
 			ladybird = $('#cover .ladybird'),
-			animals = $('#cover .animal'),
+			animalsToSlideIn = $('#cover .animal:not(.hen)'),
+			hen = $('#cover .hen'),
+			feathers = $('#cover .hen .feather'),
 			flightPath = $('#cover .flightPath');
 		
 			var data = Snap.path.toCubic(flightPath.attr('d'))
@@ -121,9 +137,9 @@ var controller = new ScrollMagic();
 				$(temp).attr('class', 'flightPath').appendTo('#cover svg');
 			}
 				
-			t
-			  .addCallback(wobbleTitle, 0.9)
-			 .add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
+			//t
+			//	.addCallback(wobbleTitle, 0.9)
+			//	.add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
 			
 			for (var i=0; i<=24; i++){
 				x = i *4;
@@ -131,16 +147,47 @@ var controller = new ScrollMagic();
 				start = x + '% ' + x + '%';
 				end = x + '% ' + y + '%';
 				time = 2/24;
-				t.add(TweenMax.fromTo($('#cover .flightPath').eq(i), time, {drawSVG:start}, {drawSVG:end, ease:Power0.easeOut}));
+			//	t.add(TweenMax.fromTo($('#cover .flightPath').eq(i), time, {drawSVG:start}, {drawSVG:end, ease:Power0.easeOut}));
 			}
 		
-			t.set(ladybird, {visibility:'visible', x:points[0].x, y:points[0].y}, '-=2.2')
-			 .to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, ease:Power0.easeOut}, '-=2.2')
-			 .staggerTo(animals, 0.2, {margin:0, ease:Back.easeOut}, 0.1);
-			//t.play();
+			t
+				//.set(ladybird, {visibility:'visible', x:points[0].x, y:points[0].y}, '-=2.2')
+				//.to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, ease:Power0.easeOut}, '-=2.2')
+				//.staggerTo(animalsToSlideIn, 0.2, {margin:0, ease:Back.easeOut}, 0.1)
+				//.staggerFromTo(animalsToSlideIn, 1, {scale:0.5}, {scale:1, ease:Elastic.easeOut}, 0.1, '-=1')
+				.staggerFromTo(hen, 0.75, {scale:0}, {scale:1, ease:Elastic.easeOut}, 0.1);
+				//var delay = 0.3;
+				
+				var delay = 0.65;
+				$.each(feathers, function(i, o){
+					var angle = (Math.random() * -90 -45).toFixed(1),
+					time = 3,
+					velocity = Math.random() * 100 + 500,
+					direction = angle < -90 ? -1 : 1,
+					rotate = direction * 90;
+					
+					console.log('angle:', angle, 'delay:', delay, 'rotate:', rotate, 'direction:' + direction + ', velocity:' + velocity);
+					
+					//t.set(o, {transform:'scaleX(' + direction + ')'});
+					t.fromTo(o, time, {scale:0.3}, {scale:3, physics2D:{velocity:velocity, angle: angle, gravity:500}, directionalRotation:rotate + '_short'}, '-=' + delay);
+					
+					//t.fromTo(o, 2, {left:'-=200'}, {left:'+=200', yoyo:true,repeat:3, ease:Sine.easeInOut}, '-=2');
+					//t.to(o, 1, {throwProps:{physics2D:{angle: '270'}}}, '-=1');
+					
+					
+					//t.to(o, 3, {throwProps:{y:{velocity:velocity/4}}}, '-=1.75');
+					//t.fromTo(o, 4, {throwProps:{marginLeft:'-2px'}}, {throwProps:{marginLeft:'2px'}, yoyo:true, repeat:3, ease:Sine.easeInOut}, '-=0.5');
+					
+					//t.fromTo(o, 4, {border:'1px solid red', left:'-=150'}, {border:'1px solid green', left:'+=150', yoyo:true, repeat:1}, '-=3');
+					//t.to(o, 4, {border:'1px solid red', bottom:'0px'}, '-=3');
+					//t.to(o, 2, {physicsProps:{y:{friction:0.2}}}, '-=2');
+					delay = time;// - (i * 0.01);; //0.01);
+				});
+				
+			t.play();
 			
-			var s = new ScrollScene({triggerElement: '#cover', offset: 100, duration:6000})//triggerElement:'#page1', duration:1500, offset:160})
-				.setTween(t)
+			var s = new ScrollScene({triggerElement: '#cover', offset: 400, duration:6000})//triggerElement:'#page1', duration:1500, offset:160})
+				//.setTween(t)
 				.setPin('#cover')
 				.addTo(controller);
 

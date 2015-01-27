@@ -101,7 +101,7 @@ textarea {
 	body{background:white;width:100%;overflow-x:hidden;font-family: 'Rambla', sans-serif;font-style:italic;font-size:18px;}
 	p {line-height:14px;}
 			
-	#cover{width:100%;height:768px;/*border:20px solid #0A0913*/;box-sizing:border-box;overflow:hidden;background:url(../img/cover/bgYellow.png) #FDE135;}
+	#cover{width:100%;height:768px;box-sizing:border-box;overflow:hidden;background:url(../img/cover/bgYellow.png) #FDE135;}
 	
 	#cover .whatword {width:284px;text-align:center;margin-left:auto;margin-right:auto;margin-top:10%;}
 	#cover .whatword>div{height:126px;display:inline-block;position:relative;}
@@ -144,6 +144,10 @@ textarea {
 	#cover .dog{background:url(../img/cover/dog.png) no-repeat; height:137px; width:116px;position:absolute;top:588px;left:0;margin-left:-116px}
 	#cover .cat1{background:url(../img/cover/cat1.png) no-repeat; height:137px; width:145px;position:absolute;top:649px;left:15%;margin-top:137px}
 	#cover .cat2{background:url(../img/cover/cat2.png) no-repeat; height:131px; width:190px;position:absolute;top:637px;left:65%;margin-top:131px}
+	#cover .hen{background:url(../img/cover/hen.png) no-repeat; height:103px; width:107px;position:absolute;top:637px;left:50%;margin-left:-53.5px;}
+	#cover .egg{background:url(../img/cover/egg.png) no-repeat; width:28px; height:37px;display:inline-block;position:absolute;top:666px;left:50%;margin-left:0;}
+	#cover .hen .feather{background:url(../img/cover/feather.png) no-repeat; width:20px; height:40px;display:inline-block;position:absolute;}
+	
 
 	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;background:white;margin-top:100px;background:#FDE135;}
 	#page1 .text{margin:20px;}
