@@ -98,9 +98,10 @@ textarea {
    ========================================================================== */
 
 
-	body{background:url(../img/cover/bgYellow.png) #FDE135;width:100%;overflow-x:hidden;}
+	body{background:white;width:100%;overflow-x:hidden;font-family: 'Rambla', sans-serif;font-style:italic;font-size:18px;}
+	p {line-height:14px;}
 			
-	#cover{width:100%;height:768px;border:20px solid #0A0913;box-sizing:border-box;overflow:hidden;}
+	#cover{width:100%;height:768px;/*border:20px solid #0A0913*/;box-sizing:border-box;overflow:hidden;background:url(../img/cover/bgYellow.png) #FDE135;}
 	
 	#cover .whatword {width:284px;text-align:center;margin-left:auto;margin-right:auto;margin-top:10%;}
 	#cover .whatword>div{height:126px;display:inline-block;position:relative;}
@@ -144,9 +145,19 @@ textarea {
 	#cover .cat1{background:url(../img/cover/cat1.png) no-repeat; height:137px; width:145px;position:absolute;top:649px;left:15%;margin-top:137px}
 	#cover .cat2{background:url(../img/cover/cat2.png) no-repeat; height:131px; width:190px;position:absolute;top:637px;left:65%;margin-top:131px}
 
-
-
-
+	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;background:white;margin-top:100px;background:#FDE135;}
+	#page1 .text{margin:20px;}
+	#page1 .pond{background:url(../img/page1/pond.png);width:700px;height:270px;border:1px solid green;position:absolute;top:30px;right:30px;}
+	#page1 .pad1{position:relative;left:70%;top:15%}
+	#page1 .pad2{position:relative;left:44%;top:23%}
+	#page1 .pad3{position:relative;left:41%;top:35%}
+	#page1 .pad4{position:relative;left:46%;top:44%}
+	
+	#page1 .fish1{position:relative;left:47%;top:45%}
+	#page1 .fish2{position:relative;left:36%;top:59%}
+	#page1 .fish3{position:relative;left:19%;top:56%}
+	#page1 .fish4{position:relative;left:18%;top:66%}
+	#page1 .fish5{position:relative;left:4%;top:77%}
 
 /* ==========================================================================
    Helper classes

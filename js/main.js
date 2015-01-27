@@ -7,7 +7,6 @@ var controller = new ScrollMagic();
 			this.html(elNewHtml);
 			return this;
 		}
-		
 		$.fn.wrapWords = function(){
 			console.log('wrapWords:', this);
 			var elCharArray = $(this.text().split(' ')).map(function(i,o){return '<span>' + o + '</span>';})
@@ -57,7 +56,7 @@ var controller = new ScrollMagic();
 		}
 		
 		function cover(){
-			
+						
 			var audio = $('#animals')[0];
 			
 			$('#cover .animal').click(function(){
@@ -78,17 +77,8 @@ var controller = new ScrollMagic();
 				
 			});
 			
-			var t = new TimelineMax({delay:1.5, paused:true})
-				
-			function ladybirdComplete(){
-				console.log('ladybirdCOmplete');
-				//t.killAllTweens();
-			}
-			
-			function flightPathUpdate(a){
-				console.log('fpu',a.getTotalLength());			
-			}
-			
+			var t = new TimelineMax(); //{delay:1.5, paused:true})
+						
 			function wobbleTitle(){
 				TweenMax.staggerFromTo(title, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
 				TweenMax.set(title, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
@@ -97,7 +87,6 @@ var controller = new ScrollMagic();
 				});
 			}
 			
-			//title = $('#cover .whatword>div, #cover .theword, #cover .ladybirdword>div, #cover .heardword>div'),
 			title = $('#cover .letter')
 			ladybird = $('#cover .ladybird'),
 			animals = $('#cover .animal'),
@@ -146,9 +135,39 @@ var controller = new ScrollMagic();
 			}
 		
 			t.set(ladybird, {visibility:'visible', x:points[0].x, y:points[0].y}, '-=2.2')
-			 .to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, onComplete:ladybirdComplete, ease:Power0.easeOut}, '-=2.2')
+			 .to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, ease:Power0.easeOut}, '-=2.2')
 			 .staggerTo(animals, 0.2, {margin:0, ease:Back.easeOut}, 0.1);
-			t.play();
+			//t.play();
+			
+			var s = new ScrollScene({triggerElement: '#cover', offset: 100, duration:6000})//triggerElement:'#page1', duration:1500, offset:160})
+				.setTween(t)
+				.setPin('#cover')
+				.addTo(controller);
+
+			s.addIndicators({zindex:100, suffix:"cover"});
+			
 		}
 
+		function page1(){
+			var t = new TimelineMax(),
+				leftFish = $('#page1 .fish.left'),
+				rightFish = $('#page1 .fish.right'),
+				pads = $('#page1 .pad');
+			
+			t.add(TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:4, yoyo:true}, 0.5));
+			t.add(TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5'}, {x:'-=10', y:'-=3', repeat:4, yoyo:true}, 0.8), '-=15');
+			t.add(TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2'}, {x:'+=15', y:'+=6', repeat:4, yoyo:true}, 1.3), '-=15');
+			
+			//{css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
+			
+			var s = new ScrollScene({triggerElement: '#page1', offset: 384, duration:3000})//triggerElement:'#page1', duration:1500, offset:160})
+				 .setTween(t)
+				.setPin('#cover')
+				.setPin('#page1')
+				.addTo(controller);
+			//t.play();
+			s.addIndicators({zindex:100, suffix:"page1"});
+		}
+		
 		cover();
+		page1();
