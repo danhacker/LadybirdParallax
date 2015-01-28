@@ -147,8 +147,8 @@ var controller = new ScrollMagic();
 				
 				ta
 					.set($this, {zIndex:100})
-					.to($this, 1.5, {rotation: 720, scale:1.8, ease:Back.easeInOut})
-					.to($this, 2.75, {rotation:0, scale:1, ease:Elastic.easeInOut})
+					.to($this, 1.5, {rotation: 720, scale:'+=1.8', ease:Back.easeInOut})
+					.to($this, 2.75, {rotation:0, scale:'-=1.8', ease:Elastic.easeInOut})
 					.set($this, {zIndex:'auto'});
 					
 				ta.play();
