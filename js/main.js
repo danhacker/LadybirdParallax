@@ -142,16 +142,24 @@ var controller = new ScrollMagic();
 			
 			function _pressSpin(){
 				var
-					$this = $(this),
-					ta = new TimelineMax({paused:true});
+					$this = $(this);
+					console.log($this.is('.animating'));
 				
+			if ($this.is(':not(.animating)')){
+				ta = new TimelineMax({paused:true});
+				$this.addClass('animating');		
 				ta
-					.set($this, {zIndex:100})
-					.to($this, 1.5, {rotation: 720, scale:'+=1.8', ease:Back.easeInOut})
-					.to($this, 2.75, {rotation:0, scale:'-=1.8', ease:Elastic.easeInOut})
-					.set($this, {zIndex:'auto'});
+					.to($this, 1.5, {rotation: 720, ease:Back.easeInOut})
+					.set($this, {rotation:0})
+					.addCallback(function(){
+						console.log('done');
+						$this.removeClass('animating');
+					});
 					
 				ta.play();
+				} else{
+					console.log('gotta wait');
+				}
 			}
 						
 			$('#cover .animal').click(function(){
@@ -163,12 +171,13 @@ var controller = new ScrollMagic();
 			});
 			
 			function _titleClick(){
-				var rnd = Math.round(Math.random() * 2);
-					switch(rnd){
-						case 0: _pressBounce.call(this); break;
-						case 1: _pressVanish.call(this);break;
-						case 2: _pressSpin.call(this);break;
-					}
+				// var rnd = Math.round(Math.random() * 2);
+					// switch(rnd){
+						// case 0: _pressBounce.call(this); break;
+						// case 1: _pressVanish.call(this);break;
+						// case 2: _pressSpin.call(this);break;
+					// }
+					_pressSpin.call(this);
 			}
 			
 			Draggable.create(title, {
