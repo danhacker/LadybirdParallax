@@ -94,10 +94,12 @@ var controller = new ScrollMagic();
 				tEgg.timeScale(4).play();
 			}
 			
-			function wobbleTitle(){
-				TweenMax.staggerFromTo(title, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
-				TweenMax.set(title, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
-				 $.each(title, function(i, o){
+			function wobble(){
+				console.log("wobble",this)
+				var $this = $(this);
+				TweenMax.staggerFromTo($this, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
+				TweenMax.set($this, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
+				 $.each($this, function(i, o){
 					 TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
 				 });
 			}
@@ -171,13 +173,13 @@ var controller = new ScrollMagic();
 			});
 			
 			function _titleClick(){
-				// var rnd = Math.round(Math.random() * 2);
-					// switch(rnd){
-						// case 0: _pressBounce.call(this); break;
-						// case 1: _pressVanish.call(this);break;
-						// case 2: _pressSpin.call(this);break;
-					// }
-					_pressSpin.call(this);
+				var rnd = Math.round(Math.random() * 2);
+					switch(rnd){
+						case 0: _pressBounce.call(this); break;
+						case 1: _pressVanish.call(this);break;
+						case 2: _pressSpin.call(this);break;
+					}
+					
 			}
 			
 			Draggable.create(title, {
@@ -202,7 +204,11 @@ var controller = new ScrollMagic();
 					}
 				},
 				onThrowComplete: function(){
-					TweenMax.to($(this.target),4,{x:0,y:0,ease:Elastic.easeOut});
+					TweenMax.to($(this.target),4,{x:0,y:0,ease:Back.easeInOut});
+					setTimeout(function(){
+						wobble.call($(this.target))
+					}, 4100);
+					
 				}, 
 				onClick:function(){
 					_titleClick.call(this.target);	
@@ -233,7 +239,7 @@ var controller = new ScrollMagic();
 			}
 				
 			t
-				.addCallback(wobbleTitle, 0.9)
+				.addCallback(function(){wobble.call(title);}, 0.9)
 				.add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
 			
 			for (var i=0; i<=24; i++){
