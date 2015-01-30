@@ -110,7 +110,7 @@ textarea {
     -ms-user-select: none;
     user-select: none;}
 	
-	#cover .whatword {width:284px;text-align:center;margin-left:auto;margin-right:auto;margin-top:10%;}
+	#cover .whatword {text-align:center;margin-left:auto;margin-right:auto;margin-top:10%;}
 	#cover .whatword>div{height:126px;display:inline-block;position:relative;}
 	#cover .whatword .w{background:url(../img/cover/whatw.png) no-repeat;width:120px;}
 	#cover .whatword .h{background:url(../img/cover/whath.png) no-repeat;width:51px;}
@@ -119,7 +119,7 @@ textarea {
 	
 	#cover .theword {height:61px;width:94px;background:url(../img/cover/the.png) no-repeat;background-size:100%;margin-left:auto;margin-right:auto;position:relative;}
 
-	#cover .ladybirdword{width:505px; text-align:center;margin-left:auto;margin-right:auto}
+	#cover .ladybirdword{text-align:center;margin-left:auto;margin-right:auto}
 	#cover .ladybirdword div{height:165px;display:inline-block;position:relative;}
 	#cover .ladybirdword .l{background:url(../img/cover/ladybirdl.png) no-repeat;width:83px;}
 	#cover .ladybirdword .a{background:url(../img/cover/ladybirda.png) no-repeat;width:59px;}
@@ -131,7 +131,7 @@ textarea {
 	#cover .ladybirdword .r{background:url(../img/cover/ladybirdr.png) no-repeat;width:53px;}
 	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd2.png) no-repeat;width:72px;}
 
-	#cover .heardword{width:286px; text-align:center;margin-left:auto;margin-right:auto}
+	#cover .heardword{text-align:center;margin-left:auto;margin-right:auto}
 	#cover .heardword>div{height:120px;display:inline-block;position:relative;}
 	#cover .heardword .h{background:url(../img/cover/heardh.png) no-repeat;width:75px;}
 	#cover .heardword .e{background:url(../img/cover/hearde.png) no-repeat;width:45px;}

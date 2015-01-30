@@ -74,28 +74,49 @@ var controller = new ScrollMagic();
 				zoom = 3, //orig svg 100, viewbox 300
 				coverTweens = {
 					bounce : function(el){
-						return { name: 'B O U N C E', tweens:[
-							TweenMax.to(el, 0.2, {scale:1.5, ease:Back.easeIn}),
+						return { name: 'bounce', tweens:[
+							TweenMax.to(el, 0.2, {scale:1.8, ease:Back.easeIn}),
 							TweenMax.to(el, 0.5, {scale:1, ease:Bounce.easeOut, delay: '0.2'})
 						]}
 					},
 					vanish : function(el){
-						return { name: 'VANISH', tweens:[
+						return { name: 'vanish', tweens:[
 							TweenMax.to(el, 0.2, {scale:0, ease:Back.easeIn}),
-							TweenMax.to(el, 0.5, {scale:1, ease:Bounce.easeOut, delay:0.2}),
-							//TweenMax.set(el, {scale:5})
-					
+							TweenMax.to(el, 0.5, {scale:1, ease:Bounce.easeOut, delay:0.2})
 						]}
 					},
 					spin : function(el){
 						return{name:'spin', tweens:[
 							TweenMax.to(el, 1.5, {rotation: 720, ease:Back.easeInOut}),
-							TweenMax.set(el, {rotation:0})
+							TweenMax.set(el, {rotation:0, delay:1.5})
+						]}
+					},
+					stretch : function(el){
+						return {name : 'stretch', tweens:[
+							TweenMax.to(el, 1.0, {transform:'scaleX(3) scaleY(0.3)', ease:Back.easeInOut}),
+							TweenMax.to(el, 0.7, {transform:'scaleX(1) scaleY(1)', ease:Elastic.easeOut, delay:1.3})
+						]}
+					},
+					squeeze : function(el){
+						return {name : 'squeeze', tweens:[
+							TweenMax.to(el, 1.0, {transform:'scaleX(0.3) scaleY(3)', ease:Back.easeInOut}),
+							TweenMax.to(el, 0.7, {transform:'scaleX(1) scaleY(1)', ease:Elastic.easeOut, delay:1.3})
+						]}
+					},
+					spinX : function(el){
+						return {name : 'spinX', tweens:[
+							TweenMax.to(el, 1.6, {rotationX:720, ease:Back.easeOut}),
+							TweenMax.set(el, {rotationX:0, delay:1.6})
+						]}
+					},
+					spinY : function(el){
+						return {name : 'spinY', tweens:[
+							TweenMax.to(el, 1.6, {rotationY:720, ease:Back.easeOut}),
+							TweenMax.set(el, {rotationY:0, delay:1.6})
 						]}
 					}
+					
 				};
-				
-				console.log(coverTweens);
 			
 			function _removeEgg(){
 				$(this).remove();
@@ -144,57 +165,21 @@ var controller = new ScrollMagic();
 			}
 			
 			function _pressAnimate(effect){
-				console.log('_pressAnimate', effect.name);
-				
-				//console.log(coverTweens);
-				//console.log(coverTweens.bounce);
-				//console.log(coverTweens.bounce('bob'));
+				//console.log('_pressAnimate', effect.name);
 				var	$this = $(this);
 				
-				if ($this.is(':not(.animating)')){
-					$this.addClass('animating');		
-					var tl = new TimelineMax({paused:true, tweens:effect.tweens});
-					//tl.Tweens(tweens);
-					// for (var x = 0; x < tweens.length;x++){
-						// console.log('adding tween ', x);
-						// tl.add(tweens[x]);
-					// }
+				//if ($this.is(':not(.animating)')){
 					
+					var tl = new TimelineMax({paused:true, tweens:effect.tweens});
 					tl.addCallback(function(){
-						console.log('remove animating');
 						$this.removeClass('animating');
 					})
 					.play();
-				}
+				//}
 			}
-			
-			
-			
-			
-			// function _pressBounce(){
-				// _pressAnimate.call(this, [
-					// TweenMax.to($(this), 0.2, {scale:1.5, ease:Back.easeIn}),
-					// TweenMax.to($(this), 0.5, {scale:1, ease:Bounce.easeOut},'0.2' )
-				// ]);	
-			// }
-			
-			// function _pressVanish(){
-				// _pressAnimate.call(this, [
-					// TweenMax.to($(this), 0.2, {scale:0, ease:Back.easeIn}),
-					// TweenMax.to($(this), 0.5, {scale:1, ease:Bounce.easeOut},'0.2' )
-				// ]);					
-			// }
-			
-			// function _pressSpin(){
-				// _pressAnimate.call(this, [
-					// TweenMax.to($(this), 1.5, {rotation: 720, ease:Back.easeInOut}),
-					// TweenMax.set($(this), {rotation:0})
-				// ]);
-			// }
 						
 			$('#cover .animal').click(function(){
-				_pressAnimate.call(this, coverTweens.bounce);
-				//_pressBounce.call(this);
+				_pressAnimate.call(this, coverTweens.bounce(this));
 				_playAudio.call(this, $('#animalSounds')[0]);
 				if ($(this).is('.hen')){
 					_layEgg();
@@ -202,18 +187,17 @@ var controller = new ScrollMagic();
 			});
 			
 			function _titleClick(){
-				var letter = $(this);
-				var effectsCount = Object.keys(coverTweens).length -1;
-				var rnd = Math.round(Math.random() * effectsCount);
-				console.log('titleClick:', rnd);
-				console.log(Object.keys(coverTweens).length);
+				var $letter = $(this);
 				
-				do we need to do this anymore?....
-				switch(rnd){
-					case 0: _pressAnimate.call(letter, coverTweens.bounce(letter)); break;
-					case 1: _pressAnimate.call(letter, coverTweens.vanish(letter));break;
-					case 2: _pressAnimate.call(letter, coverTweens.spin(letter));break;
-				}	
+				if($letter.is(':not(.animating)')){
+					console.log('accept title click');
+					$letter.addClass('animating');
+					var
+						effectsCount = Object.keys(coverTweens).length - 1,
+						rndEffectNo = Math.round(Math.random() * effectsCount),
+						effectName = Object.keys(coverTweens)[rndEffectNo];
+					_pressAnimate.call($letter, coverTweens[effectName]($letter));
+				}
 			}
 			
 			Draggable.create(title, {
@@ -224,7 +208,19 @@ var controller = new ScrollMagic();
 				zIndexBoost:true,
 				cursor:'move',
 				force3D: true,
+				onDragStart: function(){
+					var $this = $(this.target);
+					if ($this.is(':not(.animating)')){
+						console.log('dragstart')
+						$this.addClass('animating');
+						this.enable();
+					} 
+					//else {
+					//	this.disable();
+					//};
+				},
 				onDragEnd:function(){
+					console.log('ondragend');
 					var 
 						velocityX = ThrowPropsPlugin.getVelocity(this.target, 'x'),
 						velocityY = ThrowPropsPlugin.getVelocity(this.target, 'y'),
@@ -239,19 +235,27 @@ var controller = new ScrollMagic();
 					}
 				},
 				onThrowComplete: function(){
-					//TweenMax.to($(this.target),2,{x:0,y:0,ease:Elastic.easeOut}); //Back.easeInOut});
+					console.log('throw complete', $(this.target).is('.animating'));
+					var self = this;
 					new TimelineMax({paused:true})
-						//.to($(this.target), 1, {x:0, y:0, ease:Expo.easeIn})
 						.to($(this.target), 3, {x:0, y:0, ease:Back.easeInOut})
 						.play();
 						
 					setTimeout(function(){
-						wobble.call($(this.target))
+						console.log('done');
+						$(self.target).removeClass('animating');
+						self.enable();
+						wobble.call($(self.target))
 					}, 4100);
 					
 				}, 
 				onClick:function(){
+					console.log('onclick');
+					if ($(this.target).is(':not(.animating)')){
+					//	$(this.target).addClass('animating');
+						//this.disable();						
 					_titleClick.call(this.target);	
+					}
 				}
 			});
 
