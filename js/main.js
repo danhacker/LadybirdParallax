@@ -18,6 +18,7 @@ var controller = new ScrollMagic();
 		
 		$.fn.shuffleElements = function() {
  
+			//if (!Object.prototype.toString.call(this) === '[Object array']) throw 'Can only shuffle an array';
 			var allElems = this.get(),
 				getRandom = function(max) {
 					return Math.floor(Math.random() * max);
@@ -36,7 +37,9 @@ var controller = new ScrollMagic();
 			return $(shuffled);
 		};
 		
-		$.fn.shuffleArray = function(){	
+		$.fn.shuffleArray = function(){
+			if (!Object.prototype.toString.call(this) === '[Object array]') throw 'Can only shuffle an array';
+			
 			var array = $(this);
 			var currentIndex = array.length, temporaryValue, randomIndex ;
 
@@ -56,10 +59,32 @@ var controller = new ScrollMagic();
 		  return array;
 		}
 		
+		$.fn.setAnimating = function(val){
+			return this.each(function(){
+				if (!$(this).is('.letter')) throw 'Letters only';
+				
+				if (val){
+					$(this).data('anim', true);
+				} else {
+					$(this).removeData();
+				}			
+			});
+		}
+		
+		$.fn.isAnimating = function(){
+			if (this.length > 1) throw 'One at a time, please!';
+			
+			if (!$(this).is('.letter')) throw 'Letters only!';
+			
+			return ($(this).data('anim') ? true : false);
+		}
+		
+		
+		
 		function cover(){
 			
 			var 
-				t = new TimelineMax({delay:0.25, paused:true}),
+				mainTimeline = new TimelineMax({delay:0.25, paused:true}),
 				audio = $('#animalSounds')[0],
 				title = $('#cover .letter'),
 				ladybird = $('#cover .ladybird'),
@@ -118,34 +143,61 @@ var controller = new ScrollMagic();
 					
 				};
 			
-			function _removeEgg(){
+			function _removeEl(){
 				$(this).remove();
 			}
 			
 			function _layEgg(){
 				var $egg = $('<div class="egg"></div>');
-					$('#cover .hen').before($egg);
-					var tEgg = new TimelineMax({paused:true, onCompleteScope:$egg, onComplete:_removeEgg});
-					tEgg
-						.fromTo($egg, 0.3, {opacity:1, rotation:0, top:690, left:'50%'}, {top:'+=42', ease:Bounce.easeOut})
-						.to($egg, 10.5, {left:'+=200'})
-						.to($egg, 0.9, {top:'+=4', yoyo:true, repeat:1, delay:0.3}, '-=10.5') //0.3
- 						.to($egg, 1.3, {top:'+=4', delay:3.2}, '-=10.5')  //3.5
-						.to($egg, 3.3, {top:'-=4', delay:4.8}, '-=10.5')  //3.5
-						.to($egg, 1.0, {top:'+=1', delay:8.5}, '-=10.5')  //3.5
-						.to($egg, 10.5, {rotation:400}, '-=10.5')
-						.to($egg, 0.5, {opacity:0, delay:10.5}, '-=10.5')
+				$('#cover .hen').before($egg);
+					
+				
+					
+				new TimelineMax({paused:true, onCompleteScope:$egg, onComplete:_removeEl})
+					.fromTo($egg, 0.3, {opacity:1, rotation:0, top:690, left:'50%'}, {top:'+=42', ease:Bounce.easeOut})
+					.to($egg, 10.5, {left:'+=200'})
+					.to($egg, 0.9, {top:'+=4', yoyo:true, repeat:1, delay:0.3}, '-=10.2') //0.3
+					.to($egg, 1.3, {top:'+=4', delay:3.2}, '-=10.5')  //3.5
+					.to($egg, 3.3, {top:'-=4', delay:4.8}, '-=10.5')  //3.5
+					.to($egg, 1.0, {top:'+=1',delay:8.5}, '-=10.5')  //3.5
+					.to($egg, 10.5, {rotation:400}, '-=10.5')
+					.to($egg, 0.5, {opacity:0, delay:1110.5}, '+=10.5')
+					.timeScale(2)
+					.play();
+					
+					Draggable.create($egg, {
+					bounds:$('#cover'),
+					//throwProps: true,
+					type:'x,y',
+					edgeResistance:1,
+					zIndexBoost:true,
+					cursor:'move',
+					onDrag:function(){
+						console.log(this.y);
+					},
+					onDragEnd:function(){
+						var duration = 1/700 * Math.abs(this.y);
+						console.log(duration);
 						
-				tEgg.timeScale(4).play();
+						TweenMax.to(this.target, duration, {y:0, ease:Power2.easeIn});
+						// ThrowPropsPlugin.to(this.target,{
+							
+							// throwProps:{ 
+								// resistance:3000,
+								// //x: { end:'auto'},
+								// y:{ end:'0', min:-600, max:0}
+							// }, ease:Linear.easeIn}, 4, 0.1);
+					}
+				});
 			}
 			
 			function wobble(){
-				var $this = $(this);
-				TweenMax.staggerFromTo($this, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
-				TweenMax.set($this, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
-				 $.each($this, function(i, o){
-					 TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
-				 });
+				// var $this = $(this);
+				// TweenMax.staggerFromTo($this, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
+				// TweenMax.set($this, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
+				 // $.each($this, function(i, o){
+					 // TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
+				 // });
 			}
 			
 			function _playAudio(audio){
@@ -164,42 +216,47 @@ var controller = new ScrollMagic();
 				}
 			}
 			
-			function _pressAnimate(effect){
-				//console.log('_pressAnimate', effect.name);
+			function _pressAnimate(effect, callback){
+				console.log('1');
 				var	$this = $(this);
-				
-				//if ($this.is(':not(.animating)')){
-					
-					var tl = new TimelineMax({paused:true, tweens:effect.tweens});
-					tl.addCallback(function(){
-						$this.removeClass('animating');
+				console.log('2');
+				new TimelineMax({paused:true, tweens:effect.tweens, overwrite:'none'})
+					.addCallback(function(){
+						console.log('3');
+						if (typeof callback === 'function'){
+						console.log('4');
+							callback();
+						}
 					})
 					.play();
-				//}
+					console.log('5');
 			}
 						
-			$('#cover .animal').click(function(){
-				_pressAnimate.call(this, coverTweens.bounce(this));
+			$('#cover .animal').click(function(callback){
+				_pressAnimate.call(this, coverTweens.bounce(this), function(){
+					if (callback === 'function'){
+						callback();
+					}
+				});
 				_playAudio.call(this, $('#animalSounds')[0]);
 				if ($(this).is('.hen')){
 					_layEgg();
 				}
 			});
-			
-			function _titleClick(){
-				var $letter = $(this);
-				
-				if($letter.is(':not(.animating)')){
-					console.log('accept title click');
-					$letter.addClass('animating');
-					var
-						effectsCount = Object.keys(coverTweens).length - 1,
-						rndEffectNo = Math.round(Math.random() * effectsCount),
-						effectName = Object.keys(coverTweens)[rndEffectNo];
-					_pressAnimate.call($letter, coverTweens[effectName]($letter));
-				}
+						
+			function _titleClick(callback){
+				var $letter = $(this),
+					effectsCount = Object.keys(coverTweens).length - 1,
+					rndEffectNo = Math.round(Math.random() * effectsCount),
+					effectName = Object.keys(coverTweens)[rndEffectNo];
+						
+				_pressAnimate.call($letter, coverTweens[effectName]($letter), function(){
+					if (typeof callback === 'function'){
+						callback();
+					}
+				});
 			}
-			
+					
 			Draggable.create(title, {
 				bounds:$('#cover'),
 				throwProps: true,
@@ -208,54 +265,37 @@ var controller = new ScrollMagic();
 				zIndexBoost:true,
 				cursor:'move',
 				force3D: true,
-				onDragStart: function(){
-					var $this = $(this.target);
-					if ($this.is(':not(.animating)')){
-						console.log('dragstart')
-						$this.addClass('animating');
-						this.enable();
-					} 
-					//else {
-					//	this.disable();
-					//};
-				},
+				// onDragStart: function(){
+					// var $el = $(this.target);
+					// $el.data('throwing', true);
+				// },
 				onDragEnd:function(){
-					console.log('ondragend');
-					var 
-						velocityX = ThrowPropsPlugin.getVelocity(this.target, 'x'),
-						velocityY = ThrowPropsPlugin.getVelocity(this.target, 'y'),
+					var $el = $(this.target),
+						velocityX = ThrowPropsPlugin.getVelocity($el, 'x'),
+						velocityY = ThrowPropsPlugin.getVelocity($el, 'y'),
 						max = Math.max(Math.abs(velocityX), Math.abs(velocityY)),
 						rotate = Math.ceil(max/500) * 360;
-					
+						
 					if (max > 500){
-						var a = new TimelineMax({paused:true});
-						a
-							.to(this.target, 3.5, {rotation: rotate})
+						console.log('rotate: ', rotate);
+						new TimelineMax({paused:true})
+							.to($el, 3.5, {rotation: rotate})
 							.play();
 					}
 				},
 				onThrowComplete: function(){
-					console.log('throw complete', $(this.target).is('.animating'));
-					var self = this;
-					new TimelineMax({paused:true})
-						.to($(this.target), 3, {x:0, y:0, ease:Back.easeInOut})
-						.play();
-						
-					setTimeout(function(){
-						console.log('done');
-						$(self.target).removeClass('animating');
-						self.enable();
-						wobble.call($(self.target))
-					}, 4100);
+					var $el = $(this.target);
 					
+					new TimelineMax({paused:true})
+						.to($el, 3, {x:0, y:0, ease:Back.easeInOut})
+						.addCallback(function(){
+							wobble.call($el)
+						})
+						
+						.play();
 				}, 
 				onClick:function(){
-					console.log('onclick');
-					if ($(this.target).is(':not(.animating)')){
-					//	$(this.target).addClass('animating');
-						//this.disable();						
-					_titleClick.call(this.target);	
-					}
+					_titleClick.call($(this.target));
 				}
 			});
 
@@ -282,7 +322,7 @@ var controller = new ScrollMagic();
 				$(temp).attr('class', 'flightPath').appendTo('#cover svg');
 			}
 				
-			t
+			mainTimeline
 				.addCallback(function(){wobble.call(title);}, 0.9)
 				.add(TweenMax.staggerFrom(title, 1, {scale:0, ease:Back.easeOut}, 0.05))
 			
@@ -292,10 +332,10 @@ var controller = new ScrollMagic();
 				start = x + '% ' + x + '%';
 				end = x + '% ' + y + '%';
 				time = 2/24;
-				t.add(TweenMax.fromTo($('#cover .flightPath').eq(i), time, {drawSVG:start}, {drawSVG:end, ease:Power0.easeOut}));
+				mainTimeline.add(TweenMax.fromTo($('#cover .flightPath').eq(i), time, {drawSVG:start}, {drawSVG:end, ease:Power0.easeOut}));
 			}
 		
-			t
+			mainTimeline
 				.set(ladybird, {visibility:'visible', x:points[0].x, y:points[0].y}, '-=2.2')
 				.to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, ease:Power0.easeOut}, '-=2.2')
 				.staggerTo(animalsToSlideIn, 0.2, {margin:0, ease:Back.easeOut}, 0.1)
@@ -313,7 +353,7 @@ var controller = new ScrollMagic();
 				//console.log('angle:', angle, 'delay:', delay, 'rotate:', rotate, 'direction:' + direction + ', velocity:' + velocity);
 				
 				//t.set(o, {transform:'scaleX(' + direction + ')'});
-				t.fromTo(o, time, {scale:0.3}, {scale:3, physics2D:{velocity:velocity, angle: angle, gravity:500}, directionalRotation:rotate + '_short'}, '-=' + delay);
+				mainTimeline.fromTo(o, time, {scale:0.3}, {scale:3, physics2D:{velocity:velocity, angle: angle, gravity:500}, directionalRotation:rotate + '_short'}, '-=' + delay);
 				
 				//t.fromTo(o, 2, {left:'-=200'}, {left:'+=200', yoyo:true,repeat:3, ease:Sine.easeInOut}, '-=2');
 				//t.to(o, 1, {throwProps:{physics2D:{angle: '270'}}}, '-=1');
@@ -328,7 +368,7 @@ var controller = new ScrollMagic();
 				delay = time;// - (i * 0.01);; //0.01);
 			});
 				
-			t.play();
+			mainTimeline.play();
 			
 			var s = new ScrollScene({triggerElement: '#cover', offset: 400, duration:6000})//triggerElement:'#page1', duration:1500, offset:160})
 				//.setTween(t)
