@@ -149,8 +149,8 @@ var controller = new ScrollMagic();
 			
 			function _layEgg(){
 				var $egg = $('<div class="egg"></div>');
-				$('#cover .hen').before($egg);
-					
+				//$('#cover .hen').before($egg);
+				$('#cover .boo').append($egg);	
 				
 					
 				new TimelineMax({paused:true, onCompleteScope:$egg, onComplete:_removeEl})
@@ -160,34 +160,59 @@ var controller = new ScrollMagic();
 					.to($egg, 1.3, {top:'+=4', delay:3.2}, '-=10.5')  //3.5
 					.to($egg, 3.3, {top:'-=4', delay:4.8}, '-=10.5')  //3.5
 					.to($egg, 1.0, {top:'+=1',delay:8.5}, '-=10.5')  //3.5
-					.to($egg, 10.5, {rotation:400}, '-=10.5')
+					.to($egg, 10.5, {rotation:450}, '-=10.5')
 					.to($egg, 0.5, {opacity:0, delay:1110.5}, '+=10.5')
 					.timeScale(2)
 					.play();
 					
 					Draggable.create($egg, {
-					bounds:$('#cover'),
-					//throwProps: true,
-					type:'x,y',
-					edgeResistance:1,
-					zIndexBoost:true,
-					cursor:'move',
-					onDrag:function(){
-						console.log(this.y);
-					},
-					onDragEnd:function(){
-						var duration = 1/700 * Math.abs(this.y);
-						console.log(duration);
-						
-						TweenMax.to(this.target, duration, {y:0, ease:Power2.easeIn});
-						// ThrowPropsPlugin.to(this.target,{
+						bounds:$('.boo'),
+						throwProps: true,
+						type:'x,y',
+						edgeResistance:1,
+						zIndexBoost:true,
+						cursor:'move',
+						onDrag:function(){
+						maybe use data-attr to store current x and use this to compare next x to decide whether this is a left or right movement.
+							console.log('dragx:', this);
+							var rotation = this.x < 0 ? '-=1' : '+=1'
+							var scale = 1 + (1/768 * Math.abs(this.y));
+							TweenMax.killTweensOf(this.target, {rotation:0, left:0});
+							TweenMax.to(this.target, 0.01, {scale: scale, rotation:rotation});
+						},
+						onDragEnd:function(){
+							//console.log(this.y);
+							var duration = (1/768 * Math.abs(this.y)) + 0.1;
+							//console.log(duration);
 							
-							// throwProps:{ 
-								// resistance:3000,
-								// //x: { end:'auto'},
-								// y:{ end:'0', min:-600, max:0}
-							// }, ease:Linear.easeIn}, 4, 0.1);
-					}
+							
+							
+							new TimelineMax({paused: true})
+								.to(this.target, duration, {scale:1, y:0, rotation:'+=125', ease:Power3.easeIn})
+								.addCallback(function(){
+									var currentRotation = $egg[0]._gsTransform.rotation;
+									var closestSide = Math.round(currentRotation/180);
+									var distDeg = currentRotation - closestSide;
+										
+										
+									
+									console.log('currentRotation:', currentRotation, 'closestSide:', closestSide, 'distDeg:', distDeg);
+									TweenMax.to(this.target, 2, {directionalRotation:distDeg+'_short', x:(5*distDeg)});
+									
+									
+									//TweenMax.to(this.target, 2, {directionalRotation:'-90_short', delay:duration});
+								}).play();
+								
+							
+							
+							// ThrowPropsPlugin.to(this.target,{
+								
+								// throwProps:{ 
+									// resistance:3000,
+									// //x: { end:'auto'},
+									// y:{ end:'0', min:-600, max:0}
+								// }, ease:Linear.easeIn}, 4, 0.1);
+						}
 				});
 			}
 			
@@ -217,19 +242,14 @@ var controller = new ScrollMagic();
 			}
 			
 			function _pressAnimate(effect, callback){
-				console.log('1');
 				var	$this = $(this);
-				console.log('2');
 				new TimelineMax({paused:true, tweens:effect.tweens, overwrite:'none'})
 					.addCallback(function(){
-						console.log('3');
 						if (typeof callback === 'function'){
-						console.log('4');
 							callback();
 						}
 					})
 					.play();
-					console.log('5');
 			}
 						
 			$('#cover .animal').click(function(callback){
@@ -258,7 +278,7 @@ var controller = new ScrollMagic();
 			}
 					
 			Draggable.create(title, {
-				bounds:$('#cover'),
+				bounds:$('#container'),
 				throwProps: true,
 				type:'x,y',
 				edgeResistance:1,
@@ -277,7 +297,7 @@ var controller = new ScrollMagic();
 						rotate = Math.ceil(max/500) * 360;
 						
 					if (max > 500){
-						console.log('rotate: ', rotate);
+						//console.log('rotate: ', rotate);
 						new TimelineMax({paused:true})
 							.to($el, 3.5, {rotation: rotate})
 							.play();
@@ -370,7 +390,7 @@ var controller = new ScrollMagic();
 				
 			mainTimeline.play();
 			
-			var s = new ScrollScene({triggerElement: '#cover', offset: 400, duration:6000})//triggerElement:'#page1', duration:1500, offset:160})
+			var s = new ScrollScene({triggerElement: '#cover', offset: 400, duration:500})//triggerElement:'#page1', duration:1500, offset:160})
 				//.setTween(t)
 				.setPin('#cover')
 				.addTo(controller);
@@ -390,7 +410,7 @@ var controller = new ScrollMagic();
 			
 			//{css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
 			
-			var s = new ScrollScene({triggerElement: '#page1', offset: 384, duration:3000})//triggerElement:'#page1', duration:1500, offset:160})
+			var s = new ScrollScene({triggerElement: '#page1', offset: 100, duration:3000})//triggerElement:'#page1', duration:1500, offset:160})
 				 .setTween(t)
 				.setPin('#cover')
 				.setPin('#page1')
@@ -401,3 +421,4 @@ var controller = new ScrollMagic();
 		
 		cover();
 		page1();
+		

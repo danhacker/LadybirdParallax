@@ -98,10 +98,20 @@ textarea {
    ========================================================================== */
 
 
-	body{background:white;width:100%;overflow-x:hidden;font-family: 'Rambla', sans-serif;font-style:italic;font-size:18px;}
+	body{background:white;width:100%;overflow-x:hidden;font-family: 'Rambla', sans-serif;font-style:italic;font-size:18px;background:#333;box-shadow:inset 38px 0 46px #444, inset -38px 0 46px #444;}
 	p {line-height:14px;}
 			
-	#cover{width:100%;height:768px;box-sizing:border-box;overflow:hidden;background:url(../img/cover/bgYellow.png) #FDE135;}
+	#cover{width:100%;height:768px;min-width:640px;box-sizing:border-box;padding:0 10px;}
+	
+	#cover .pageContainer {width:100%;max-width:1024px;height:768px;box-sizing:border-box;background:url(../img/cover/bgYellow.png) #FDE135;margin-left:auto;margin-right:auto;position:relative;box-shadow:8px 0 20px #000, -8px 0 20px #000, inset 7px -5px 24px #FFF; -webkit-border-top-right-radius: 7px;
+-webkit-border-bottom-right-radius: 7px;
+-moz-border-radius-topright: 7px;
+-moz-border-radius-bottomright: 7px;
+border-top-right-radius: 7px;
+border-bottom-right-radius: 7px;}
+	
+	/* #cover #thing {width:100%;max-width:1024px;height:768px;margin-left:auto;margin-right:auto;position:relative;} */
+	#cover .boo{width:100%;max-width:1024px;height:768px;box-sizing:border-box;margin-left:auto;margin-right:auto;position:relative;overflow:hidden;position:absolute;top:0;}
 	
 	#cover {-webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -110,8 +120,8 @@ textarea {
     -ms-user-select: none;
     user-select: none;}
 	
-	#cover .whatword {text-align:center;margin-left:auto;margin-right:auto;margin-top:10%;}
-	#cover .whatword>div{height:126px;display:inline-block;position:relative;}
+	#cover .whatword {text-align:center;margin-left:auto;margin-right:auto;padding-top:3%;}
+	#cover .whatword>div{height:126px;display:inline-block;position:relative;z-index:3;}
 	#cover .whatword .w{background:url(../img/cover/whatw.png) no-repeat;width:120px;}
 	#cover .whatword .h{background:url(../img/cover/whath.png) no-repeat;width:51px;}
 	#cover .whatword .a{background:url(../img/cover/whata.png) no-repeat;width:46px;}
@@ -120,7 +130,7 @@ textarea {
 	#cover .theword {height:61px;width:94px;background:url(../img/cover/the.png) no-repeat;background-size:100%;margin-left:auto;margin-right:auto;position:relative;}
 
 	#cover .ladybirdword{text-align:center;margin-left:auto;margin-right:auto}
-	#cover .ladybirdword div{height:165px;display:inline-block;position:relative;}
+	#cover .ladybirdword div{height:165px;display:inline-block;position:relative;z-index:2;}
 	#cover .ladybirdword .l{background:url(../img/cover/ladybirdl.png) no-repeat;width:83px;}
 	#cover .ladybirdword .a{background:url(../img/cover/ladybirda.png) no-repeat;width:59px;}
 	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd.png) no-repeat;width:58px;}
@@ -132,7 +142,7 @@ textarea {
 	#cover .ladybirdword .d{background:url(../img/cover/ladybirdd2.png) no-repeat;width:72px;}
 
 	#cover .heardword{text-align:center;margin-left:auto;margin-right:auto}
-	#cover .heardword>div{height:120px;display:inline-block;position:relative;}
+	#cover .heardword>div{height:120px;display:inline-block;position:relative;z-index:2;}
 	#cover .heardword .h{background:url(../img/cover/heardh.png) no-repeat;width:75px;}
 	#cover .heardword .e{background:url(../img/cover/hearde.png) no-repeat;width:45px;}
 	#cover .heardword .a{background:url(../img/cover/hearda.png) no-repeat;width:43px;}
@@ -140,8 +150,10 @@ textarea {
 	#cover .heardword .d{background:url(../img/cover/heardd.png) no-repeat;width:53px;}
 	
 	#cover .ladybird{width:36px; height:35px !important;background:url(../img/cover/ladybird.png) no-repeat;z-index:1;top:-284px;left:-12px;position:absolute!important;visibility:hidden;}
-	#cover svg{position:absolute;width:300px;height:300px;bottom:118px;left:17px;}
+	#cover svg{position:absolute;width:300px;height:300px;bottom:118px;left:17px;z-index:0;}
 	#cover .flightPath{}
+	
+	
 	#cover .goose{background:url(../img/cover/goose.png) no-repeat; height:63px; width:99px;position:absolute;top:32px;right:0;margin-right:-99px;}
 	#cover .sheep{background:url(../img/cover/sheep.png) no-repeat; height:207px; width:162px;position:absolute;top:108px;right:0;margin-right:-162px}
 	#cover .horse{background:url(../img/cover/horse.png) no-repeat; height:203px; width:149px;position:absolute;top:400px;right:0;margin-right:-149px}
@@ -158,7 +170,7 @@ textarea {
 
 	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;background:white;margin-top:100px;background:#FDE135;}
 	#page1 .text{margin:20px;}
-	#page1 .pond{background:url(../img/page1/pond.png);width:700px;height:270px;border:1px solid green;position:absolute;top:30px;right:30px;}
+	#page1 .pond{background:url(../img/page1/pond.png);width:700px;height:270px;border:1px solid green;position:relative;top:30px;right:30px;}
 	#page1 .pad1{position:relative;left:70%;top:15%}
 	#page1 .pad2{position:relative;left:44%;top:23%}
 	#page1 .pad3{position:relative;left:41%;top:35%}
