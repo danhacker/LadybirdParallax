@@ -164,7 +164,7 @@ border-bottom-right-radius: 7px;}
 	#cover .cat1{background:url(../img/cover/cat1.png) no-repeat; height:137px; width:145px;position:absolute;top:649px;left:15%;margin-top:137px}
 	#cover .cat2{background:url(../img/cover/cat2.png) no-repeat; height:131px; width:190px;position:absolute;top:637px;left:65%;margin-top:131px}
 	#cover .hen{background:url(../img/cover/hen.png) no-repeat; height:103px; width:107px;position:absolute;top:637px;left:50%;margin-left:-53.5px;}
-	#cover .egg{background:url(../img/cover/egg.png) no-repeat; width:28px; height:37px;display:inline-block;position:absolute;top:666px;left:50%;margin-left:0;}
+	#cover .egg{background:url(../img/cover/egg.png) no-repeat; width:28px; height:37px;display:inline-block;position:absolute;top:666px;left:50%;margin-left:0;border:1px solid black;}
 	#cover .hen .feather{background:url(../img/cover/feather.png) no-repeat; width:20px; height:40px;display:inline-block;position:absolute;}
 	
 
