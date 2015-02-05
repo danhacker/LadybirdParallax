@@ -1,5 +1,8 @@
 var controller = new ScrollMagic();
 		
+		eggPoints = [];
+		points = []; //holds our series of x/y values for anchors and control points,
+		
 function cover(){
 	
 	var 
@@ -13,8 +16,15 @@ function cover(){
 		flightPath = $('#cover .flightPath'),
 		data = Snap.path.toCubic(flightPath.attr('d')),
 		dataLength = data.length,
-		points = [], //holds our series of x/y values for anchors and control points,
+		
 		pointsString = data.toString(),
+		
+		eggPath = $('#cover .eggPath'),
+		eggPathData = Snap.path.toCubic(eggPath.attr('d')),
+		eggPathLength = eggPathData.length,
+		
+		eggPointsString = eggPathData.toString(),
+		
 		zoom = 3, //orig svg 100, viewbox 300
 		coverTweens = {
 			bounce : function(el){
@@ -70,127 +80,109 @@ function cover(){
 		TweenMax.killTweensOf($('.egg'))
 		$('.egg').remove();
 		
-		var startTop = 690; dropTo = startTop + 42, tolerance = 1, target = 90,
-			$egg = $('<div class="egg"></div>'); //w=28, h=37
+		var $egg = $('<div class="egg"></div>'), 
+			initialRotation=200,
+			rotations = 1, 
+			totalDuration = 10,
+			
+			
+			rotate = (rotations * 360) - 20,
+			duration = rotations * totalDuration,
+			distance = rotations * 100,
+			tolerance = 3,
+			lineCue = {
+				zero: false,
+				one:false,
+				two:false,
+				three:false,
+				four:false
+			};
 		
-		var last = 0;
 		$('#cover .boo').append($egg);
-		new TimelineMax({paused:true, onCompleteScope:$egg, onComplete:function(){$(this).remove();}})
-			.fromTo($egg, 0.9, {opacity:1, rotation:0, top:startTop, left:'50%'}, {top:dropTo, ease:Bounce.easeOut})
-			.to($egg, 10.5, {rotation:450, onUpdate:function(){
-				//console.log('progress:', this.totalProgress() % 0.25, 'dur: '+  this.totalDuration());
 				
-				var r = this.target[0]._gsTransform.rotation;
-				var mark = r % target;
-				
-				
-				//console.log(this.target[0]._gsTransform.rotation, mark, rMin, rMax);//Math.floor(this.target[0]._gsTransform.rotation) + ' deg', this.totalProgress()*100 + '%');
-				
-				
-				if ((mark >= 0 && mark <= tolerance) || (mark >=(target-tolerance) && mark <= (target+tolerance))){
-					//console.log(this.target[0]._gsTransform.rotation, this.totalProgress()*100 + '%' );//Math.floor(this.target[0]._gsTransform.rotation) + ' deg', this.totalProgress()*100 + '%');
-					
-					
-					start = 0;
-					change = r;
-					totalTime = this.totalDuration();
-					currentTime = totalTime * this.totalProgress();
-					
-					//-c * t*(t-2) + b;
-					
-					time = currentTime / totalTime;
-					pos = - change * time*(time-2) + start;
-					
-					console.log('start' + start, 'change:' + change, 'time:'+ time, 'prog:' + this.totalProgress(), 'currentTime:' + currentTime, 'result=' + pos);
-					//c*t*t + b
-					
-					
-					// c = r - last;
-					
-					// t = (this.totalProgress() * 100) * this.totalDuration();
-					
-					// d = this.totalDuration();
-					
-					// t = t/d;
-					// console.log('r=' + c, 't=' + t, ' ttt = ' + (c * t * t), 'prog:' + (this.totalProgress() * 100));
-					// $('.egg').css('border','1px solid red');
-					
-					// last = r;
-				} else
-				{
-				$('.egg').css('border','none');
+		new TimelineMax({paused:true})
+			.set($egg, {rotation:initialRotation})
+			.to($egg, duration, {
+				left:'+=' + distance,
+				startAt:{y:'+=65'},
+				directionalRotation:'+=' + rotate + '_cw',
+				ease:Back.easeOut,
+				onUpdate: function(){
+					var p = this.totalProgress();
+					var d = this.target[0]._gsTransform.rotation - initialRotation;
+							//console.log(p, d);			
+					switch (true){
+						case (d > (1-tolerance) && d < (1+tolerance)): //-22, 1+3-20 = -16
+							if (!lineCue.zero){
+							//alert('a');
+								lineCue.zero = true;
+								console.log('0', p);
+								TweenMax.to($egg, 1.4, {top:'+=23'});
+							};break;
+						
+						case (d > (45-tolerance-20) && d < (45+tolerance-20)):  //45-3-20= 22, 45+3-20 = 28
+							if (!lineCue.one){
+								lineCue.one = true;
+								console.log('45', p, d);
+								TweenMax.to($egg, 3.1, {top:'-=23'});
+							};break;
+							
+						case (d > (90-tolerance-20) && d < (90+tolerance-20)):
+							if (!lineCue.two){
+								lineCue.two = true;
+								console.log('90', p, d);
+								TweenMax.to($egg, 3.3, {y:'+=23'});
+							};break;
+							
+						case (d > (135-tolerance-20) && d < (135+tolerance-20)):
+							if (!lineCue.three){
+								lineCue.three = true;
+								console.log('135', p, d);
+								TweenMax.to($egg, 3.84, {y:'-=23'});
+							};break;
+							
+						case (d > (180-tolerance-20) && d < (180+tolerance-20)):
+							if (!lineCue.four){
+								lineCue.four = true;
+								console.log('180', p);
+								TweenMax.to($egg, 4.16, {y:'-=23'});
+							};break;	
+							
+						case (d > (225-tolerance-20) && d < (225+tolerance-20)):
+							if (!lineCue.five){
+								lineCue.five = true;
+								console.log('225', p);
+							};break;
+						
+						case (d > (270-tolerance-20) && d < (270+tolerance-20)):
+							if (!lineCue.six){
+								lineCue.six = true;
+								console.log('270', p);
+							};break;
+							
+						case (d > (315-tolerance-20) && d < (315+tolerance-20)):
+							if (!lineCue.seven){
+								lineCue.seven = true;
+								console.log('315', p);
+							};break;
+							
+						case (d > (360-tolerance-20) && d < (360+tolerance-20)):
+							if (!lineCue.eight){
+								lineCue.eight = true;
+								console.log('360', p);
+							};break;
+					}
 				}
-				
-				
-				
-				
-				// if (Math.floor(Math.round(this.target[0]._gsTransform.rotation) % 90) == 0){
-					// console.log('beep ', Math.round(Math.round(this.target[0]._gsTransform.rotation) % 90) + 'deg', this.totalProgress()*100 + '%');
-				// }
-				// if (Math.round((this.totalProgress()*100) % 25) == 0){
-					// console.log('mark ', Math.round(this.target[0]._gsTransform.rotation % 360));
-					// //console.log('progress:', this.totalProgress(), 'dur: '+  this.totalDuration());
-				// }
-				
-				
-			}}, '=-0.6')
-			.timeScale(1)
+			})
 			.play();
+		
+		
+				
+	// new TimelineMax({paused:true})
+			// .set($egg, {visibility:'visible', x:eggPoints[eggPoints.length-1].x, y:eggPoints[eggPoints.length-1].y, rotation:90})
+			// .add(TweenMax.to($egg, 3, {rotation:-270, bezier:{type:"cubic", values:eggPoints}, ease:Quad.easeIn}).reverse())
 			
-			
-			// console.log(this.target[0]._gsTransform);
-				// var r = Math.round(this.target[0]._gsTransform.rotation % 360);
-				// var q;
-				// var t, p;
-				// switch (true){
-					
-					// case (r > 0 && r <= 90):
-					// case (r > 180 && r <= 270):
-						// //console.log('a');
-						// threshold = r <= 90 ? 90 : 270
-						
-						// r = r % threshold;
-						// if (r==0) r = threshold;
-						// p = (r == threshold) ? 1 : (r < threshold) ? r / threshold : 1-(((r/threshold)-1));
-						// //console.log(r, p);
-						// p = p % 15;
-						// d = '+';
-						// t = parseFloat((15 * p));
-						
-						// break;
-						
-					// case (r > 90 && r <= 180):
-						// // console.log('b');
-						// threshold = 180;
-						// r = 1 - (threshold % r);
-						// if (r==0) r = threshold;
-						// p = (r == threshold) ? 0 : (r < threshold) ? r / threshold : 1-(((r/threshold)-1));
-						
-						// p = p % 17;
-						// d = '-';
-						// t = parseFloat((17 * -p));
-						// break;
-						
-					// // case (r > 270 && r <= 360):
-						// // // console.log('b');
-						// // threshold = r <= 180 ? 180 : 359.9
-						
-						// // r = 1 - (threshold % r);
-						// // if (r==0) r = threshold;
-						// // p = (r == threshold) ? 0 : (r < threshold) ? r / threshold : 1-(((r/threshold)-1));
-						
-						// // p = p % 6;
-						// // d = '-';
-						// // t = parseFloat((6 * -p));
-						// // break;
-				// };
-				
-				//console.log(r, p, t);
-				
-				//TweenMax.set(this.target, {top: dropTo + t});
-				//console.log(threshold, r.toFixed(2) + 'deg', p.toFixed(2) + '%', t.toFixed(2), 'actual top: ' + this.target.position().top.toFixed(2));
-				//console.log('u', this.target[0]._gsTransform.rotation);
-				
+			// .play();
 				
 			//.to($egg, 10.5, {left:'+=200'})
 			//.to($egg, 0.9, {top:'+=4', yoyo:true, repeat:1, delay:0.3}, '-=10.2') //0.3
@@ -353,8 +345,34 @@ function cover(){
 			_titleClick.call($(this.target));
 		}
 	});
+	
+	// eggPath convert cubic data to GSAP bezier
+	for (var i = 0; i < eggPathLength; i++) {
+	  var seg = eggPathData[i];
+	  if (seg[0] === "M") { // move (starts the path)
+		var point = {};
+		point.x = seg[1];
+		point.y = seg[2];
+		
+		point.x = point.x;
+		point.y = point.y;
+		console.log(eggPathData);
+		eggPoints.push(point);
+	  } else { // seg[0] === "C" (Snap.path.toCubic should return only curves after first point)
+		for (var j = 1; j < 6; j+=2) {
+		  var point = {};
+		  point.x = seg[j];
+		  point.y = seg[j+1];
+		  
+		  point.x = point.x;
+		  point.y = point.y;
+		
+		 eggPoints.push(point);
+		}
+	  }
+	}
 
-	// convert cubic data to GSAP bezier
+	// flightPath convert cubic data to GSAP bezier
 	for (var i = 0; i < dataLength; i++) {
 	  var seg = data[i];
 	  if (seg[0] === "M") { // move (starts the path)
@@ -395,7 +413,7 @@ function cover(){
 		.to(ladybird, 2.2, {bezier:{type:"cubic", values:points}, ease:Power0.easeOut}, '-=2.2')
 		.staggerTo(animalsToSlideIn, 0.2, {margin:0, ease:Back.easeOut}, 0.1)
 		.staggerFromTo(animalsToSlideIn, 1, {scale:0.5}, {scale:1, ease:Elastic.easeOut}, 0.1, '-=1')
-		.staggerFromTo(hen, 0.75, {scale:0}, {scale:1, ease:Elastic.easeOut}, 0.1);
+		.staggerFromTo(hen, 0.75, {scale:0}, {scale:1, ease:Elastic.easeOut}, 0.1 ,'=-1');
 		
 	var delay = 0.65;
 	$.each(feathers, function(i, o){
