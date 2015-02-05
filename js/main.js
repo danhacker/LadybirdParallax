@@ -75,181 +75,155 @@ function cover(){
 	function _removeEl(){
 		$(this).remove();
 	}
-	
+		
 	function _layEgg(){
-		TweenMax.killTweensOf($('.egg'))
-		$('.egg').remove();
+		//TweenMax.killTweensOf($('.egg'))
+		//$('.egg').remove();
 		
 		var $egg = $('<div class="egg"></div>'), 
 			initialRotation=200,
 			rotations = 1, 
-			totalDuration = 10,
-			
-			
+			totalDuration = 3,
+				
 			rotate = (rotations * 360) - 20,
 			duration = rotations * totalDuration,
 			distance = rotations * 100,
 			tolerance = 3,
-			lineCue = {
-				zero: false,
-				one:false,
-				two:false,
-				three:false,
-				four:false
-			};
+			lineCue = [
+				{
+					angle:45,
+					pc:4.5,
+					time: 0.31,
+					vars:{top:'+=4'},
+					mark:false
+				}, {
+					angle:90,
+					pc:7.9,
+					time: 0.34,
+					vars:{top:'-=1'},
+					mark:false
+				}, {
+					angle:135,
+					pc:11.6,
+					time: 0.37,
+					vars:{top:'-=8'},
+					mark:false
+				}, {
+					angle:180,
+					pc:15.9,
+					time:0.43,
+					vars:{top:'+=7'},
+					mark:false
+				},	{
+					angle:225,
+					pc:20.9,
+					time: 0.5,
+					vars:{top:'+=2'},
+					mark:false
+				}, {
+					angle:270,
+					pc:27.3,
+					time: 0.64,
+					vars:{top:'-=4'},
+					mark:false
+				}, {
+					angle:315,
+					pc:36.3,
+					time: 0.9,
+					vars:{top:'-=6'},
+					mark:false
+				},	{
+					angle:360,
+					pc:0,
+					time:0.9,
+					vars:{top:'+=1', yoyo:true, repeat:1},
+					mark:false
+				}
+			];
+	
+			
 		
-		$('#cover .boo').append($egg);
-				
+		$('#cover .boo').append($egg);	
 		new TimelineMax({paused:true})
-			.set($egg, {rotation:initialRotation})
+			//.set($egg, {rotation:180})
+			.fromTo($egg, 0.2, {y:'-=30', rotation:initialRotation-50},{y:'+=30', x:'+=20', rotation:initialRotation, ease:Linear.easeNone})
 			.to($egg, duration, {
 				left:'+=' + distance,
-				startAt:{y:'+=65'},
+				startAt: {y:'+=3'},
 				directionalRotation:'+=' + rotate + '_cw',
 				ease:Back.easeOut,
 				onUpdate: function(){
 					var p = this.totalProgress();
 					var d = this.target[0]._gsTransform.rotation - initialRotation;
-							//console.log(p, d);			
-					switch (true){
-						case (d > (1-tolerance) && d < (1+tolerance)): //-22, 1+3-20 = -16
-							if (!lineCue.zero){
-							//alert('a');
-								lineCue.zero = true;
-								console.log('0', p);
-								TweenMax.to($egg, 1.4, {top:'+=23'});
-							};break;
+					
+					var action = $.grep(lineCue, function(item){
+						var min = item.angle-tolerance-20,
+							max = item.angle+tolerance-20;
+						min = min < 0 ? 0 : min;
+						max = max < 0 ? tolerance : max;
 						
-						case (d > (45-tolerance-20) && d < (45+tolerance-20)):  //45-3-20= 22, 45+3-20 = 28
-							if (!lineCue.one){
-								lineCue.one = true;
-								console.log('45', p, d);
-								TweenMax.to($egg, 3.1, {top:'-=23'});
-							};break;
-							
-						case (d > (90-tolerance-20) && d < (90+tolerance-20)):
-							if (!lineCue.two){
-								lineCue.two = true;
-								console.log('90', p, d);
-								TweenMax.to($egg, 3.3, {y:'+=23'});
-							};break;
-							
-						case (d > (135-tolerance-20) && d < (135+tolerance-20)):
-							if (!lineCue.three){
-								lineCue.three = true;
-								console.log('135', p, d);
-								TweenMax.to($egg, 3.84, {y:'-=23'});
-							};break;
-							
-						case (d > (180-tolerance-20) && d < (180+tolerance-20)):
-							if (!lineCue.four){
-								lineCue.four = true;
-								console.log('180', p);
-								TweenMax.to($egg, 4.16, {y:'-=23'});
-							};break;	
-							
-						case (d > (225-tolerance-20) && d < (225+tolerance-20)):
-							if (!lineCue.five){
-								lineCue.five = true;
-								console.log('225', p);
-							};break;
-						
-						case (d > (270-tolerance-20) && d < (270+tolerance-20)):
-							if (!lineCue.six){
-								lineCue.six = true;
-								console.log('270', p);
-							};break;
-							
-						case (d > (315-tolerance-20) && d < (315+tolerance-20)):
-							if (!lineCue.seven){
-								lineCue.seven = true;
-								console.log('315', p);
-							};break;
-							
-						case (d > (360-tolerance-20) && d < (360+tolerance-20)):
-							if (!lineCue.eight){
-								lineCue.eight = true;
-								console.log('360', p);
-							};break;
+						return (d > min 
+							&&  d <= max
+							&& item.mark != true)
+					})[0];
+					
+					if (action != null){
+						action.mark = true;
+						TweenMax.killTweensOf(this.target, {top:''});
+						TweenMax.to(this.target, action.time*(duration/3), action.vars);
 					}
+				}, onComplete:function(){
+					TweenMax.set(this.target, {rotation:180});
+					TweenMax.to($egg, 2.5, {directionalRotation:'180_short', ease:Elastic.easeIn});
+					TweenMax.to($egg, 2, {opacity:0, delay:5, onComplete:function(){
+						$(this.target).remove();
+					}})
 				}
-			})
+				})
 			.play();
 		
-		
-				
-	// new TimelineMax({paused:true})
-			// .set($egg, {visibility:'visible', x:eggPoints[eggPoints.length-1].x, y:eggPoints[eggPoints.length-1].y, rotation:90})
-			// .add(TweenMax.to($egg, 3, {rotation:-270, bezier:{type:"cubic", values:eggPoints}, ease:Quad.easeIn}).reverse())
-			
-			// .play();
-				
-			//.to($egg, 10.5, {left:'+=200'})
-			//.to($egg, 0.9, {top:'+=4', yoyo:true, repeat:1, delay:0.3}, '-=10.2') //0.3
-			//.to($egg, 1.3, {top:'+=4', delay:3.2}, '-=10.5')  //3.5
-			//.to($egg, 3.3, {top:'-=4', delay:4.8}, '-=10.5')  //3.5
-			//.to($egg, 1.0, {top:'+=1',delay:8.5}, '-=10.5')  //3.5
-			//.to($egg, 10.5, {rotation:450}, '-=10.5')
-			//.to($egg, 0.5, {opacity:0, delay:1110.5}, '+=10.5')
-			
-			
-			Draggable.create($egg, {
+		Draggable.create($egg, {
 				bounds:$('#cover .boo'),
 				throwProps: true,
 				type:'x,y',
 				edgeResistance:1,
 				zIndexBoost:true,
 				cursor:'move',
+				onDragStart:function(){
+					TweenMax.killTweensOf(this.target);
+					TweenMax.to(this.target, 0.3, {rotation:180+80, ease:Quad.easeOut});
+					TweenMax.to(this.target, 1, {rotation:180-80, delay:0.3, ease:Quad.easeInOut, yoyo:true, repeat:-1});
+				},
+				onRelease:function(){
+					var direction = $(this.target)[0]._gsTransform.rotation-180 < 0 ? '-' : '+';
+					TweenMax.to(this.target, 3, {rotation:direction+'=360', ease:Quad.easeOut});
+				},
 				onDrag:function(){
-					//console.log('dragx:', this);
-					var rotation = this.x < 0 ? '-=1' : '+=1'
 					var scale = 1 + (1/768 * Math.abs(this.y));
-					TweenMax.killTweensOf(this.target, {rotation:0, left:0});
-					TweenMax.to(this.target, 0.01, {scale: scale, rotation:rotation});
+					TweenMax.to(this.target, 0.01, {scale: scale});
 				},
 				onDragEnd:function(){
-					//console.log(this.y);
 					var duration = (1/768 * Math.abs(this.y)) + 0.1;
-					//console.log(duration);
-					
-					
 					
 					new TimelineMax({paused: true})
-						.to(this.target, duration, {scale:1, y:0, rotation:'+=125', ease:Power3.easeIn})
+						.to(this.target, duration, {scale:1, y:0, ease:Power3.easeIn})
 						.addCallback(function(){
-							var currentRotation = $egg[0]._gsTransform.rotation;
-							var closestSide = Math.round(currentRotation/180);
-							var distDeg = currentRotation - closestSide;
-								
-								
-							
-							console.log('currentRotation:', currentRotation, 'closestSide:', closestSide, 'distDeg:', distDeg);
-							TweenMax.to(this.target, 2, {directionalRotation:distDeg+'_short', x:(5*distDeg)});
-							
-							
-							//TweenMax.to(this.target, 2, {directionalRotation:'-90_short', delay:duration});
+							TweenMax.to($egg, 2.5, {directionalRotation:'180_short', ease:Elastic.easeOut});
+							TweenMax.to($egg, 0.5, {opacity:0, delay:5, onComplete:function(){
+								$(this.target).remove();
+							}})
 						}).play();
-						
-					
-					
-					// ThrowPropsPlugin.to(this.target,{
-						
-						// throwProps:{ 
-							// resistance:3000,
-							// //x: { end:'auto'},
-							// y:{ end:'0', min:-600, max:0}
-						// }, ease:Linear.easeIn}, 4, 0.1);
 				}
 		});
 	}
 	
 	function wobble(){
-		// var $this = $(this);
-		// TweenMax.staggerFromTo($this, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
-		// TweenMax.set($this, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
-		 // $.each($this, function(i, o){
-			 // TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
-		 // });
+		var $this = $(this);
+		TweenMax.staggerFromTo($this, 0.5, {rotation:-2}, {rotation:2, yoyo:true, repeat:-1,  ease:Power1.easeInOut}, 0.05);
+		TweenMax.set($this, {css:{transformPerspective:500, perspective:500, transformStyle:'preserve-3d'}});
+		$.each($this, function(i, o){
+			TweenMax.fromTo(o, 1, {css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
+		});
 	}
 	
 	function _playAudio(audio){
@@ -356,7 +330,6 @@ function cover(){
 		
 		point.x = point.x;
 		point.y = point.y;
-		console.log(eggPathData);
 		eggPoints.push(point);
 	  } else { // seg[0] === "C" (Snap.path.toCubic should return only curves after first point)
 		for (var j = 1; j < 6; j+=2) {
