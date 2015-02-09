@@ -24,7 +24,8 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <div id="container">
+        <audio id="animalSounds" src="audio/animals.mp3"></audio>
+		<div id="container">
 		
 				<div id="cover">
 				
@@ -69,7 +70,7 @@
 							<div class="letter d"></div>
 						</div>
 						
-						<div class="boo">
+						<div class="animals">
 							<div class="animal goose" data-audiostart="14.4" data-audiolength="1.7"></div>
 							<div class="animal sheep" data-audiostart="13.9" data-audiolength="0.5"></div>
 							<div class="animal horse" data-audiostart="9.7" data-audiolength="3.3"></div>
@@ -93,29 +94,40 @@
 						</div>
 						
 					</div>
-										
-				<audio id="animalSounds" src="audio/animals.mp3"></audio>
+				
 			</div>
 			
 			<div id="page1">
-				<div class="text">
-					<p>Once upon a farm lived a fat red hen,</p>
-					<p>A duck in a pond and a goose in a pen,</p>
-					<p>A woolly sheep, a hairy hog,</p>
-					<p>A Handsome horse and a dainty dog,</p>
-					<p>A cat that miaowed and a cat that purred,</p>
-				</div>
-				<p>A fine prize cow,</p>
-				<div class="pond">
-					<img class="pad pad1" src="img/page1/pad1.png" border="0"/>
-					<img class="pad pad2" src="img/page1/pad2.png" border="0"/>
-					<img class="pad pad3" src="img/page1/pad3.png" border="0"/>
-					<img class="pad pad4" src="img/page1/pad4.png" border="0"/>
-					<img class="fish fish1 left" src="img/page1/fish1.png" border="0"/>
-					<img class="fish fish2 left" src="img/page1/fish2.png" border="0"/>
-					<img class="fish fish3 right" src="img/page1/fish3.png" border="0"/>
-					<img class="fish fish4 right" src="img/page1/fish4.png" border="0"/>
-					<img class="fish fish5 right" src="img/page1/fish5.png" border="0"/>
+				<div class="pageContainer">
+				
+					<div class="text">
+						<p>Once upon a farm lived a fat red hen,</p>
+						<p>A duck in a pond and a goose in a pen,</p>
+						<p>A woolly sheep, a hairy hog,</p>
+						<p>A Handsome horse and a dainty dog,</p>
+						<p>A cat that miaowed and a cat that purred,</p>
+					</div>
+					<p>A fine prize cow,</p>
+					<!--div class="scene"-->
+						<div class="prop pond">
+							<div class="actor duck"></div>
+							<img class="pad pad1" src="img/page1/pad1.png" border="0"/>
+							<img class="pad pad2" src="img/page1/pad2.png" border="0"/>
+							<img class="pad pad3" src="img/page1/pad3.png" border="0"/>
+							<img class="pad pad4" src="img/page1/pad4.png" border="0"/>
+							<img class="fish fish1 left" src="img/page1/fish1.png" border="0"/>
+							<img class="fish fish2 left" src="img/page1/fish2.png" border="0"/>
+							<img class="fish fish3 right" src="img/page1/fish3.png" border="0"/>
+							<img class="fish fish4 right" src="img/page1/fish4.png" border="0"/>
+							<img class="fish fish5 right" src="img/page1/fish5.png" border="0"/>
+						</div>
+						<div class="actor hen" data-audiostart="20" data-audiolength="0.8"></div>
+						<div class="prop fence">
+							<div class="actor goose"></div>
+						</div>
+						<div class="prop bush"></div>
+						
+					<!--/div-->
 				</div>
 				
 			</div>

@@ -101,7 +101,12 @@ textarea {
 	body{background:white;width:100%;overflow-x:hidden;font-family: 'Rambla', sans-serif;font-style:italic;font-size:18px;background:#333;box-shadow:inset 38px 0 46px #444, inset -38px 0 46px #444;}
 	p {line-height:14px;}
 			
-	#cover{width:100%;height:768px;min-width:640px;box-sizing:border-box;padding:0 10px;}
+	#cover{width:100%;height:768px;min-width:640px;box-sizing:border-box;padding:0 10px;-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;}
 	
 	#cover .pageContainer {width:100%;max-width:1024px;height:768px;box-sizing:border-box;background:url(../img/cover/bgYellow.png) #FDE135;margin-left:auto;margin-right:auto;position:relative;box-shadow:8px 0 20px #000, -8px 0 20px #000, inset 7px -5px 24px #FFF; -webkit-border-top-right-radius: 7px;
 -webkit-border-bottom-right-radius: 7px;
@@ -111,14 +116,7 @@ border-top-right-radius: 7px;
 border-bottom-right-radius: 7px;}
 	
 	/* #cover #thing {width:100%;max-width:1024px;height:768px;margin-left:auto;margin-right:auto;position:relative;} */
-	#cover .boo{width:100%;max-width:1024px;height:768px;box-sizing:border-box;margin-left:auto;margin-right:auto;position:relative;overflow:hidden;position:absolute;top:0;}
-	
-	#cover {-webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;}
+	#cover .animals{width:100%;max-width:1024px;height:768px;box-sizing:border-box;margin-left:auto;margin-right:auto;position:relative;overflow:hidden;position:absolute;top:0;}
 	
 	#cover .whatword {text-align:center;margin-left:auto;margin-right:auto;padding-top:3%;}
 	#cover .whatword>div{height:126px;display:inline-block;position:relative;z-index:3;}
@@ -168,9 +166,18 @@ border-bottom-right-radius: 7px;}
 	#cover .hen .feather{background:url(../img/cover/feather.png) no-repeat; width:20px; height:40px;display:inline-block;position:absolute;}
 	
 
-	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;margin-top:100px;background:url(../img/page1/bg.jpg) #FDE135;;}
-	#page1 .text{margin:20px;}
-	#page1 .pond{background:url(../img/page1/pond.png);width:700px;height:270px;border:1px solid green;position:relative;top:30px;right:30px;}
+	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;margin-top:100px;}
+	#page1 .pageContainer {width:100%;max-width:1024px;height:768px;box-sizing:border-box;background:url(../img/page1/bg.jpg) #FDE135;margin-left:auto;margin-right:auto;position:relative;box-shadow:8px 0 20px #000, -8px 0 20px #000, inset 7px -5px 24px #FFF; overflow:hidden;-webkit-border-top-right-radius: 7px;
+-webkit-border-bottom-right-radius: 7px;
+-moz-border-radius-topright: 7px;
+-moz-border-radius-bottomright: 7px;
+border-top-right-radius: 7px;
+border-bottom-right-radius: 7px;}
+
+	/*#page1 .scene{border:5px solid red; width:200%;height:768px;;position:relative;box-sizing:border-box;}*/
+	
+	#page1 .text{position:absolute;margin:20px;z-index:5;}
+	#page1 .pond{background:url(../img/page1/pond.png);background-size:100% 100%;width:700px;height:270px;position:absolute;top:30px;right:-700px;}
 	#page1 .pad1{position:relative;left:70%;top:15%}
 	#page1 .pad2{position:relative;left:44%;top:23%}
 	#page1 .pad3{position:relative;left:41%;top:35%}
@@ -181,7 +188,16 @@ border-bottom-right-radius: 7px;}
 	#page1 .fish3{position:relative;left:19%;top:56%}
 	#page1 .fish4{position:relative;left:18%;top:66%}
 	#page1 .fish5{position:relative;left:4%;top:77%}
-
+	
+	#page1 .prop{position:absolute;background-size:100% 100%;}
+	#page1 .actor{position:absolute;background-size:100% 100%;}
+	#page1 .fence{width:346px;height:452px;background:url(../img/page1/fence.png);right:-346px; top:10%;}
+	
+	#page1 .bush{width:415px; height:317px;background:url(../img/page1/bush.png);right:-415px;bottom:0;}
+	#page1 .hen{width:100px;height:114px;background:url(../img/page1/hen.png);background-size:100% 100%;left:50px;top:45%;}
+	#page1 .duck{width:143px;height:123px;background:url(../img/page1/duck.png);background-size:100% 100%;top:-160px;left:10%;}
+	#page1 .goose{width:99px;height:171px;background:url(../img/page1/goose.png);background-size:100% 100%;right:-100px;top:100px;}
+	
 /* ==========================================================================
    Helper classes
    ========================================================================== */

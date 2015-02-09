@@ -2,31 +2,7 @@ var controller = new ScrollMagic();
 		
 		eggPoints = [];
 		points = []; //holds our series of x/y values for anchors and control points,
-		
-function cover(){
-	
-	var 
-		mainTimeline = new TimelineMax({delay:0.25, paused:true}),
-		audio = $('#animalSounds')[0],
-		title = $('#cover .letter'),
-		ladybird = $('#cover .ladybird'),
-		animalsToSlideIn = $('#cover .animal:not(.hen)'),
-		hen = $('#cover .hen'),
-		feathers = $('#cover .hen .feather'),
-		flightPath = $('#cover .flightPath'),
-		data = Snap.path.toCubic(flightPath.attr('d')),
-		dataLength = data.length,
-		
-		pointsString = data.toString(),
-		
-		eggPath = $('#cover .eggPath'),
-		eggPathData = Snap.path.toCubic(eggPath.attr('d')),
-		eggPathLength = eggPathData.length,
-		
-		eggPointsString = eggPathData.toString(),
-		
-		zoom = 3, //orig svg 100, viewbox 300
-		coverTweens = {
+		commonTweens = {
 			bounce : function(el){
 				return { name: 'bounce', tweens:[
 					TweenMax.to(el, 0.2, {scale:1.8, ease:Back.easeIn}),
@@ -71,15 +47,48 @@ function cover(){
 			}
 			
 		};
-	
-	function _removeEl(){
-		$(this).remove();
+		
+	function _playAudio(audio){
+		var
+			$this = $(this),
+			start = $this.data('audiostart'),
+			length = $this.data('audiolength') * 1000,
+			hasAudio = !isNaN(start) && !isNaN(length);
+		if (hasAudio){
+			audio.currentTime = start;
+			audio.play();
+			setTimeout(function(){
+				audio.pause();
+			}, length);
+		}
 	}
+	
+function cover(){
+	
+	var 
+		mainTimeline = new TimelineMax({delay:0.25, paused:true}),
+		audio = $('#animalSounds')[0],
+		title = $('#cover .letter'),
+		ladybird = $('#cover .ladybird'),
+		animalsToSlideIn = $('#cover .animal:not(.hen)'),
+		hen = $('#cover .hen'),
+		feathers = $('#cover .hen .feather'),
+		flightPath = $('#cover .flightPath'),
+		data = Snap.path.toCubic(flightPath.attr('d')),
+		dataLength = data.length,
 		
+		pointsString = data.toString(),
+		
+		eggPath = $('#cover .eggPath'),
+		eggPathData = Snap.path.toCubic(eggPath.attr('d')),
+		eggPathLength = eggPathData.length,
+		
+		eggPointsString = eggPathData.toString(),
+		
+		zoom = 3; //orig svg 100, viewbox 300
+		
+	
 	function _layEgg(){
-		//TweenMax.killTweensOf($('.egg'))
-		//$('.egg').remove();
-		
 		var $egg = $('<div class="egg"></div>'), 
 			initialRotation=200,
 			rotations = 1, 
@@ -143,7 +152,7 @@ function cover(){
 	
 			
 		
-		$('#cover .boo').append($egg);	
+		$('#cover .animals').append($egg);	
 		new TimelineMax({paused:true})
 			//.set($egg, {rotation:180})
 			.fromTo($egg, 0.2, {y:'-=30', rotation:initialRotation-50},{y:'+=30', x:'+=20', rotation:initialRotation, ease:Linear.easeNone})
@@ -183,7 +192,7 @@ function cover(){
 			.play();
 		
 		Draggable.create($egg, {
-				bounds:$('#cover .boo'),
+				bounds:$('#cover .animals'),
 				throwProps: true,
 				type:'x,y',
 				edgeResistance:1,
@@ -226,22 +235,6 @@ function cover(){
 		});
 	}
 	
-	function _playAudio(audio){
-		var
-			$this = $(this),
-			start = $this.data('audiostart'),
-			length = $this.data('audiolength') * 1000,
-			hasAudio = !isNaN(start) && !isNaN(length);
-		
-		if (hasAudio){
-			audio.currentTime = start;
-			audio.play();
-			setTimeout(function(){
-				audio.pause();
-			}, length);
-		}
-	}
-	
 	function _pressAnimate(effect, callback){
 		var	$this = $(this);
 		new TimelineMax({paused:true, tweens:effect.tweens, overwrite:'none'})
@@ -254,7 +247,7 @@ function cover(){
 	}
 				
 	$('#cover .animal').click(function(callback){
-		_pressAnimate.call(this, coverTweens.bounce(this), function(){
+		_pressAnimate.call(this, coTweens.bounce(this), function(){
 			if (callback === 'function'){
 				callback();
 			}
@@ -267,11 +260,11 @@ function cover(){
 				
 	function _titleClick(callback){
 		var $letter = $(this),
-			effectsCount = Object.keys(coverTweens).length - 1,
+			effectsCount = Object.keys(commonTweens).length - 1,
 			rndEffectNo = Math.round(Math.random() * effectsCount),
-			effectName = Object.keys(coverTweens)[rndEffectNo];
+			effectName = Object.keys(commonTweens)[rndEffectNo];
 				
-		_pressAnimate.call($letter, coverTweens[effectName]($letter), function(){
+		_pressAnimate.call($letter, commonTweens[effectName]($letter), function(){
 			if (typeof callback === 'function'){
 				callback();
 			}
@@ -286,10 +279,6 @@ function cover(){
 		zIndexBoost:true,
 		cursor:'move',
 		force3D: true,
-		// onDragStart: function(){
-			// var $el = $(this.target);
-			// $el.data('throwing', true);
-		// },
 		onDragEnd:function(){
 			var $el = $(this.target),
 				velocityX = ThrowPropsPlugin.getVelocity($el, 'x'),
@@ -298,7 +287,6 @@ function cover(){
 				rotate = Math.ceil(max/500) * 360;
 				
 			if (max > 500){
-				//console.log('rotate: ', rotate);
 				new TimelineMax({paused:true})
 					.to($el, 3.5, {rotation: rotate})
 					.play();
@@ -428,17 +416,51 @@ function page1(){
 	var t = new TimelineMax(),
 		leftFish = $('#page1 .fish.left'),
 		rightFish = $('#page1 .fish.right'),
-		pads = $('#page1 .pad');
-	
-	t.add(TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:4, yoyo:true}, 0.5));
-	t.add(TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5'}, {x:'-=10', y:'-=3', repeat:4, yoyo:true}, 0.8), '-=15');
-	t.add(TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2'}, {x:'+=15', y:'+=6', repeat:4, yoyo:true}, 1.3), '-=15');
-	
+		pads = $('#page1 .pad'),
+		bush = $('#page1 .bush'),
+		fence = $('#page1 .fence'),
+		pond = $('#page1 .pond'),
+		hen = $('#page1 .hen'),
+		duck = $('#page1 .duck');
+		//scene = $('#page1 .scene');
+
+	t.fromTo(hen, 2, {left:'-150px'},{left:'50px', ease:Cubic.easeOut}); //, transform:'skew(-50deg, 0deg)'
+	//t.to(hen, 2, {transform:'skew(0deg, 0deg)', ease:Elastic.easeOut});
+	//t.add('henCluck');
+	t.add(commonTweens.bounce(hen).tweens, '+=1.5','sequence', 0.2);
+	t.add(function(){
+		_playAudio.call(hen, $('#animalSounds')[0]);
+	},'-=1')
+	.to(hen, 2, {left:'-150px'}, '+=2')
+	.to(pond, 6, {right:'20px'}, '-=2')
+	.to(duck, 1.5, {top:'50px', ease:Quint.easeIn})
+	.to(duck, 10, {left:'+=120px'})
+	.fromTo(duck,2, {rotation:20},{rotation:-20, yoyo:true, repeat:3, ease:Linear.easeNone},'-=10')
+	.to(duck,1, {rotation:0})	
+	//,{left:'+=20'})
+	t.add(TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:4, yoyo:true}, 0.5), '-=14');
+	t.add(TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5'}, {x:'-=10', y:'-=3', repeat:4, yoyo:true}, 0.8), '-=14');
+	t.add(TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2'}, {x:'+=15', y:'+=6', repeat:4, yoyo:true}, 1.3), '-=14')
+	t.to(pond, 5, {right:'60%'}, '-=8')
+	t.to(fence, 10, {right:'0'},'-=8')
+	t.fromTo(bush, 8, {right:'-415px', bottom:'-317px'},{right:'0', bottom:'0', ease:Bounce.easeOut}, '-=8.5')
+	t.to(goose, 4, {right:})
+		
+		
+	/*t.fromTo(fence,14, {right:'-350px'},{right:'0px'});
+	t.fromTo(bush, 5, {right:'-415px'},{right:'0px'}, '-=14');
+	t.fromTo(pond, 1, {left:'-700px'},{left:'20px'}, '-=4')
+	t.fromTo(pond, 1, {left:'-700px'},{left:'20px'}, '-=4')
+	t.fromTo(pond, 1, {left:'-700px'},{left:'20px'}, '-=4')
+	t.add(TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:4, yoyo:true}, 0.5), '-=14');
+	t.add(TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5'}, {x:'-=10', y:'-=3', repeat:4, yoyo:true}, 0.8), '-=14');
+	t.add(TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2'}, {x:'+=15', y:'+=6', repeat:4, yoyo:true}, 1.3), '-=14');
+	*/
 	//{css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
 	
-	var s = new ScrollScene({triggerElement: '#page1', offset: 100, duration:3000})//triggerElement:'#page1', duration:1500, offset:160})
-		 .setTween(t)
-		.setPin('#cover')
+	var s = new ScrollScene({triggerElement: '#page1', offset: 400, duration:3000})//triggerElement:'#page1', duration:1500, offset:160})
+		.setTween(t)
+		//.setPin('#cover')
 		.setPin('#page1')
 		.addTo(controller);
 	//t.play();
@@ -447,4 +469,3 @@ function page1(){
 
 cover();
 page1();
-		
