@@ -3,14 +3,14 @@ var controller = new ScrollMagic();
 		eggPoints = [];
 		points = []; //holds our series of x/y values for anchors and control points,
 		commonTweens = {
-			bounce : function(el){
-				return { name: 'bounce', tweens:[
+			bounceOut : function(el){
+				return { name: 'bounceOut', tweens:[
 					TweenMax.to(el, 0.2, {scale:1.8, ease:Back.easeIn}),
 					TweenMax.to(el, 0.5, {scale:1, ease:Bounce.easeOut, delay: '0.2'})
 				]}
 			},
-			vanish : function(el){
-				return { name: 'vanish', tweens:[
+			bounceIn : function(el){
+				return { name: 'bounceIn', tweens:[
 					TweenMax.to(el, 0.2, {scale:0, ease:Back.easeIn}),
 					TweenMax.to(el, 0.5, {scale:1, ease:Bounce.easeOut, delay:0.2})
 				]}
@@ -421,30 +421,71 @@ function page1(){
 		fence = $('#page1 .fence'),
 		pond = $('#page1 .pond'),
 		hen = $('#page1 .hen'),
-		duck = $('#page1 .duck');
+		duck = $('#page1 .duck'),
+		waves = $('#page1 .waves'),
+		goose = $('#page1 .goose'),
+		sheep = $('#page1 .sheep'),
+		hog = $('#page1 .hog')
+		horse = $('#page1 .horse'),
+		dog = $('#page1 .dog');
 		//scene = $('#page1 .scene');
 
-	t.fromTo(hen, 2, {left:'-150px'},{left:'50px', ease:Cubic.easeOut}); //, transform:'skew(-50deg, 0deg)'
-	//t.to(hen, 2, {transform:'skew(0deg, 0deg)', ease:Elastic.easeOut});
-	//t.add('henCluck');
-	t.add(commonTweens.bounce(hen).tweens, '+=1.5','sequence', 0.2);
+	t.fromTo(hen, 2, {left:'-150px'},{left:'50px', ease:Cubic.easeOut});
+	//cluck
+	t.add(commonTweens.bounceOut(hen).tweens, '+=1.5','sequence', 0.2);
 	t.add(function(){
 		_playAudio.call(hen, $('#animalSounds')[0]);
 	},'-=1')
+	
+	//hen exit stage left
 	.to(hen, 2, {left:'-150px'}, '+=2')
-	.to(pond, 6, {right:'20px'}, '-=2')
-	.to(duck, 1.5, {top:'50px', ease:Quint.easeIn})
-	.to(duck, 10, {left:'+=120px'})
-	.fromTo(duck,2, {rotation:20},{rotation:-20, yoyo:true, repeat:3, ease:Linear.easeNone},'-=10')
-	.to(duck,1, {rotation:0})	
-	//,{left:'+=20'})
-	t.add(TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:4, yoyo:true}, 0.5), '-=14');
-	t.add(TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5'}, {x:'-=10', y:'-=3', repeat:4, yoyo:true}, 0.8), '-=14');
-	t.add(TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2'}, {x:'+=15', y:'+=6', repeat:4, yoyo:true}, 1.3), '-=14')
-	t.to(pond, 5, {right:'60%'}, '-=8')
-	t.to(fence, 10, {right:'0'},'-=8')
-	t.fromTo(bush, 8, {right:'-415px', bottom:'-317px'},{right:'0', bottom:'0', ease:Bounce.easeOut}, '-=8.5')
-	t.to(goose, 4, {right:})
+	
+	//pond enter stage right
+	.from(pond, 6, {right:'-700px', top:'30px'}, '-=2')
+	
+	//duck drop from stage top
+	
+	t.fromTo(duck, 1.5, {top:'-150%', opacity:0},{top:'30px', opacity:1, ease:Quint.easeIn})
+	.addCallback(function(){
+
+		setTimeout(function(){
+			_playAudio.call(duck, $('#animalSounds')[0]);
+			new TimelineMax().add(commonTweens.bounceOut(duck).tweens, '-=9','sequence', 0.05);
+		},1500);
+		TweenMax.to(duck, 1, {rotationY:'+=180', yoyo:true, repeat:-1, repeatDelay:9, delay:10})
+		TweenMax.to(duck, 10, {left:'+=180px', ease:Linear.easeNone, yoyo:true, repeat:-1});
+		TweenMax.fromTo(duck, 2, {rotation:'+=10'},{rotation:'-=10', yoyo:true, repeat:-1, ease:Sine.easeInOut},'-=10')
+		
+		TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:-1, yoyo:true}, 0.5);
+		TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5',opacity:0.3}, {x:'-=10', y:'-=3', opacity:0.7, repeat:-1, yoyo:true}, 0.8);
+		TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2', opacity:0.4}, {x:'+=15', y:'+=6', opacity:0.6, repeat:-1, yoyo:true}, 1.3);
+	});
+	
+	
+	
+	// .add(commonTweens.bounceOut(duck).tweens, '-=9','sequence', 0.2)
+	// .add(function(){
+		
+		// _playAudio.call(duck, $('#animalSounds')[0]);
+	// }, '-=9')
+		
+	t.to(pond, 3, {right:'60%'}, '+=6')
+	
+	 .to(fence, 7, {right:'0'},'-=0.25')
+	 .fromTo(bush, 5, {right:'-415px', bottom:'-317px'},{right:'0', bottom:'0', ease:Bounce.easeOut}, '-=8.5')
+	 .to(goose, 4, {right:'+=220'})
+	 .addCallback(function(){
+		_playAudio.call(goose, $('#animalSounds')[0])
+	 }, '+=0.75')
+	 
+	 .to(bush, 1, {right:'-415px', bottom:'0'}, '+=3.5')
+	 .to(fence, 2, {right:'-100%'}, '-=1')
+	 .to(pond, 4, {right:'-280px', top:'160px'}, '-=2')
+	 .from(sheep,2.5,{opacity:0, bottom:'-=165px',left:'-=350px', ease:Bounce.easeOut})
+	 .from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=350px', ease:Bounce.easeOut})
+	 .from(horse,4.5,{opacity:0, bottom:'-=435px',left:'-=643px', ease:Bounce.easeOut})
+	 .from(dog, 10, {opacity:0, bottom:'-=118px', left:'-=210px', ease:Bounce.easeOut});
+	
 		
 		
 	/*t.fromTo(fence,14, {right:'-350px'},{right:'0px'});

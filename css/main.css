@@ -177,13 +177,14 @@ border-bottom-right-radius: 7px;}
 	/*#page1 .scene{border:5px solid red; width:200%;height:768px;;position:relative;box-sizing:border-box;}*/
 	
 	#page1 .text{position:absolute;margin:20px;z-index:5;}
-	#page1 .pond{background:url(../img/page1/pond.png);background-size:100% 100%;width:700px;height:270px;position:absolute;top:30px;right:-700px;}
+	#page1 .pond{background:url(../img/page1/pond.png);background-size:100% 100%;width:700px;height:270px;position:absolute;top:50%;margin-top:-135px;right:30px;}
+	
 	#page1 .pad1{position:relative;left:70%;top:15%}
 	#page1 .pad2{position:relative;left:44%;top:23%}
 	#page1 .pad3{position:relative;left:41%;top:35%}
 	#page1 .pad4{position:relative;left:46%;top:44%}
 	
-	#page1 .fish1{position:relative;left:47%;top:45%}
+	#page1 .fish1{position:relative;left:47%;top:45%;}
 	#page1 .fish2{position:relative;left:36%;top:59%}
 	#page1 .fish3{position:relative;left:19%;top:56%}
 	#page1 .fish4{position:relative;left:18%;top:66%}
@@ -195,8 +196,13 @@ border-bottom-right-radius: 7px;}
 	
 	#page1 .bush{width:415px; height:317px;background:url(../img/page1/bush.png);right:-415px;bottom:0;}
 	#page1 .hen{width:100px;height:114px;background:url(../img/page1/hen.png);background-size:100% 100%;left:50px;top:45%;}
-	#page1 .duck{width:143px;height:123px;background:url(../img/page1/duck.png);background-size:100% 100%;top:-160px;left:10%;}
+	#page1 .duck{width:100px;height:90px;background:url(../img/page1/duck.png);background-size:100% 100%;left:50px;transform-origin:50% 80%;}
 	#page1 .goose{width:99px;height:171px;background:url(../img/page1/goose.png);background-size:100% 100%;right:-100px;top:100px;}
+	#page1 .waves{width:355px;height:96px;background:url(../img/page1/pond-waves.png);background-size:100% 100%;top:98px;right:309px;opacity:0.85;}
+	#page1 .sheep{width:299px;height:165px;background:url(../img/page1/sheep.png);background-size:100% 100%;bottom:0;left:85px;}
+	#page1 .hog{width:400px;height:250px;background:url(../img/page1/hog.png);background-size:100% 100%;bottom:0;left:326px;}
+	#page1 .horse{width:643px;height:435px;background:url(../img/page1/horse.png);background-size:100% 100%;bottom:0;left:20px;}
+	#page1 .dog{width:210px;height:118px;background:url(../img/page1/dog.png);background-size:100% 100%;bottom:0;left:416px;}
 	
 /* ==========================================================================
    Helper classes
