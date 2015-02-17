@@ -432,8 +432,32 @@ function page1(){
 		cat1tail = $('#page1 .cat1tail'),
 		cat2 = $('#page1 .cat2'),
 		cow = $('#page1 .cow'),
-		arm = $('#page1 .arm');
-		//scene = $('#page1 .scene');
+		arm = $('#page1 .arm'),
+		text = $('#page1 .text'),
+		words = text.find('>div div');
+		//tempTime = new TimelineMax();
+		
+		function bounceWord(e){
+		TweenMax.to(e, 0.1, {scale:1.5, color:'red', ease:Back.easeIn}),
+			TweenMax.to(e, 0.3, {scale:1, color:'black', ease:Bounce.easeOut, delay: '0.1'})
+		}
+		words.click(function(e){
+			bounceWord(e.target);
+		});
+		
+		text.mousedown(function(e){
+			console.log('mouseDown', e.target);
+				text.on('mouseover', function(e){
+					console.log('mouseover');
+					bounceWord(e.target);
+				});
+		});
+		
+		$('body').mouseup(function(e){
+			console.log('page1 mouseUp');
+			text.off('mouseover')
+		});
+		
 
 	t.fromTo(hen, 2, {left:'-150px'},{left:'50px',top:'50%', ease:Cubic.easeOut});
 	//cluck

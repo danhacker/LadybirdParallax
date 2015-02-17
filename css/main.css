@@ -166,7 +166,12 @@ border-bottom-right-radius: 7px;}
 	#cover .hen .feather{background:url(../img/cover/feather.png) no-repeat; width:20px; height:40px;display:inline-block;position:absolute;}
 	
 
-	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;margin-top:100px;}
+	#page1{width:100%;height:768px;/*border:20px solid #778E88*/;box-sizing:border-box;overflow:hidden;margin-top:100px;-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;}
 	#page1 .pageContainer {width:100%;max-width:1024px;height:768px;box-sizing:border-box;background:url(../img/page1/bg.jpg) #FDE135;margin-left:auto;margin-right:auto;position:relative;box-shadow:8px 0 20px #000, -8px 0 20px #000, inset 7px -5px 24px #FFF; overflow:hidden;-webkit-border-top-right-radius: 7px;
 -webkit-border-bottom-right-radius: 7px;
 -moz-border-radius-topright: 7px;
@@ -210,7 +215,7 @@ border-bottom-right-radius: 7px;}
 	#page1 .cow{width:558px;height:411px;background:url(../img/page1/cow-noarm-nocat.png);background-size:100% 100%;bottom:75px;left:352px;z-index:1;opacity:1;}
 	#page1 .arm{width:56px;height:112px;background:url(../img/page1/farmerArm.png);background-size:100% 100%;top:110px;left:308px;z-index:1;opacity:1;}
 	
-	
+	#page1 .text>div div{display:inline-block;}
 	
 /* ==========================================================================
    Helper classes
