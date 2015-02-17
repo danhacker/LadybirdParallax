@@ -427,7 +427,10 @@ function page1(){
 		sheep = $('#page1 .sheep'),
 		hog = $('#page1 .hog')
 		horse = $('#page1 .horse'),
-		dog = $('#page1 .dog');
+		dog = $('#page1 .dog'),
+		cat1 = $('#page1 .cat1'),
+		cat1tail = $('#page1 .cat1tail'),
+		cat2 = $('#page1 .cat2');
 		//scene = $('#page1 .scene');
 
 	t.fromTo(hen, 2, {left:'-150px'},{left:'50px', ease:Cubic.easeOut});
@@ -481,12 +484,26 @@ function page1(){
 	 .to(bush, 1, {right:'-415px', bottom:'0'}, '+=3.5')
 	 .to(fence, 2, {right:'-100%'}, '-=1')
 	 .to(pond, 4, {right:'-280px', top:'160px'}, '-=2')
-	 .from(sheep,2.5,{opacity:0, bottom:'-=165px',left:'-=350px', ease:Bounce.easeOut})
-	 .from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=350px', ease:Bounce.easeOut})
-	 .from(horse,4.5,{opacity:0, bottom:'-=435px',left:'-=643px', ease:Bounce.easeOut})
-	 .from(dog, 10, {opacity:0, bottom:'-=118px', left:'-=210px', ease:Bounce.easeOut});
+	 //.from(sheep,2.5,{opacity:0, bottom:'-=165px',left:'-=350px', ease:Bounce.easeOut})
+	 //.from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=350px', ease:Bounce.easeOut})
+	 //.from(horse,4.5,{opacity:0, bottom:'-=435px',left:'-=643px', ease:Bounce.easeOut})
+	 //.from(dog, 10, {opacity:0, bottom:'-=118px', left:'-=210px', ease:Bounce.easeOut});
+	 .from(sheep, 2.5, {opacity:0, transformOrigin:'50% 400px', rotation:-40})
+	.from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=50px', ease:Bounce.easeOut})
+	.from(horse,5.5,{opacity:0, left:'-=643px', ease:Quart.easeInOut})
+	.from(dog, 10, {opacity:0, transformOrigin:'50% 100%', scale:0, ease:Elastic.easeOut})
+	.from(cat1, 5, {opacity:0, bottom:'182px', ease: Circ.easeIn})
+	.set(cat1tail, {opacity:1, transformOrigin:'20% 0%'})
+	.fromTo(cat1tail, 3, {rotation:-45, rotationY:40}, {rotation:0, rotationY:0})
+	//.fromTo(cat1tail, 3, {rotation:10}, {rotation:-10, yoyo:true, repeat:3 })
 	
-		
+	.to(sheep, 5, {transformOrigin:'100% 100%', left:'-=200px', scale:0.5})
+	.to(hog, 5, {transformOrigin:'0 100%', left:'-=195px', scale:0.5, delay:-3})
+	.to(horse, 5, {transformOrigin:'50% 100%', left:'-=165px', scale:0.5, delay:-5})
+	.to(cat1, 5, {transformOrigin:'60% 346px', left:'-=165px', scale:0.5, delay:-5})
+	.to(cat1tail, 5, {transformOrigin:'125% 280px', left:'-=165px', scale:0.5, delay:-5})
+	.to(dog, 5, {transformOrigin:'0% 100%', left:'-=250px', scale:0.5, delay:-2})
+	
 		
 	/*t.fromTo(fence,14, {right:'-350px'},{right:'0px'});
 	t.fromTo(bush, 5, {right:'-415px'},{right:'0px'}, '-=14');
