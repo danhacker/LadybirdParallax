@@ -430,10 +430,12 @@ function page1(){
 		dog = $('#page1 .dog'),
 		cat1 = $('#page1 .cat1'),
 		cat1tail = $('#page1 .cat1tail'),
-		cat2 = $('#page1 .cat2');
+		cat2 = $('#page1 .cat2'),
+		cow = $('#page1 .cow'),
+		arm = $('#page1 .arm');
 		//scene = $('#page1 .scene');
 
-	t.fromTo(hen, 2, {left:'-150px'},{left:'50px', ease:Cubic.easeOut});
+	t.fromTo(hen, 2, {left:'-150px'},{left:'50px',top:'50%', ease:Cubic.easeOut});
 	//cluck
 	t.add(commonTweens.bounceOut(hen).tweens, '+=1.5','sequence', 0.2);
 	t.add(function(){
@@ -444,7 +446,7 @@ function page1(){
 	.to(hen, 2, {left:'-150px'}, '+=2')
 	
 	//pond enter stage right
-	.from(pond, 6, {right:'-700px', top:'30px'}, '-=2')
+	.from(pond, 6, {right:'-350px', top:'30px'}, '-=2')
 	
 	//duck drop from stage top
 	
@@ -463,46 +465,74 @@ function page1(){
 		TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5',opacity:0.3}, {x:'-=10', y:'-=3', opacity:0.7, repeat:-1, yoyo:true}, 0.8);
 		TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2', opacity:0.4}, {x:'+=15', y:'+=6', opacity:0.6, repeat:-1, yoyo:true}, 1.3);
 	});
-	
-	
-	
-	// .add(commonTweens.bounceOut(duck).tweens, '-=9','sequence', 0.2)
-	// .add(function(){
-		
-		// _playAudio.call(duck, $('#animalSounds')[0]);
-	// }, '-=9')
 		
 	t.to(pond, 3, {right:'60%'}, '+=6')
 	
-	 .to(fence, 7, {right:'0'},'-=0.25')
+	//show fence, goose & bush
+	 .to(fence, 7, {right:'-90px'},'-=0.25')
 	 .fromTo(bush, 5, {right:'-415px', bottom:'-317px'},{right:'0', bottom:'0', ease:Bounce.easeOut}, '-=8.5')
 	 .to(goose, 4, {right:'+=220'})
 	 .addCallback(function(){
 		_playAudio.call(goose, $('#animalSounds')[0])
 	 }, '+=0.75')
 	 
-	 .to(bush, 1, {right:'-415px', bottom:'0'}, '+=3.5')
+	 //remove the bush, fence and
+	 .to(bush, 1, {right:'-415px', bottom:'-20%'}, '+=3.5')
 	 .to(fence, 2, {right:'-100%'}, '-=1')
-	 .to(pond, 4, {right:'-280px', top:'160px'}, '-=2')
-	 //.from(sheep,2.5,{opacity:0, bottom:'-=165px',left:'-=350px', ease:Bounce.easeOut})
-	 //.from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=350px', ease:Bounce.easeOut})
-	 //.from(horse,4.5,{opacity:0, bottom:'-=435px',left:'-=643px', ease:Bounce.easeOut})
-	 //.from(dog, 10, {opacity:0, bottom:'-=118px', left:'-=210px', ease:Bounce.easeOut});
-	 .from(sheep, 2.5, {opacity:0, transformOrigin:'50% 400px', rotation:-40})
+	 
+	 //move the pond
+	 .to(pond, 4, {right:'-350px', top:'160px'}, '-=2')
+	 
+	//introduce sheep, hog, horse, dog and cat1
+	.from(sheep, 2.5, {opacity:0, transformOrigin:'50% 400px', rotation:-40})
 	.from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=50px', ease:Bounce.easeOut})
 	.from(horse,5.5,{opacity:0, left:'-=643px', ease:Quart.easeInOut})
+	.fromTo(hen, 6, {top:'100%'},{left:'493px',top:'231px'})
 	.from(dog, 10, {opacity:0, transformOrigin:'50% 100%', scale:0, ease:Elastic.easeOut})
 	.from(cat1, 5, {opacity:0, bottom:'182px', ease: Circ.easeIn})
+	//wag the cat's tail
 	.set(cat1tail, {opacity:1, transformOrigin:'20% 0%'})
-	.fromTo(cat1tail, 3, {rotation:-45, rotationY:40}, {rotation:0, rotationY:0})
-	//.fromTo(cat1tail, 3, {rotation:10}, {rotation:-10, yoyo:true, repeat:3 })
+	.fromTo(cat1tail, 3, {rotation:-45, rotationY:40}, {rotation:10, rotationY:0})
+	.to(cat1tail, 3, {rotation:-25, rotationY:30, yoyo:true, repeat:3, ease:Linear.easeNone})
+	.set(cat1tail, {left:'205px'})
 	
-	.to(sheep, 5, {transformOrigin:'100% 100%', left:'-=200px', scale:0.5})
-	.to(hog, 5, {transformOrigin:'0 100%', left:'-=195px', scale:0.5, delay:-3})
-	.to(horse, 5, {transformOrigin:'50% 100%', left:'-=165px', scale:0.5, delay:-5})
-	.to(cat1, 5, {transformOrigin:'60% 346px', left:'-=165px', scale:0.5, delay:-5})
-	.to(cat1tail, 5, {transformOrigin:'125% 280px', left:'-=165px', scale:0.5, delay:-5})
-	.to(dog, 5, {transformOrigin:'0% 100%', left:'-=250px', scale:0.5, delay:-2})
+	
+	//move animals to right & scale
+	.to(sheep, 5, {transformOrigin:'100% 100%', left:'-=250px', scale:1.2})
+	.to(hog, 5, {transformOrigin:'0 100%', left:'-=520px', scale:1.2, delay:-1})
+	.to(horse, 5, {transformOrigin:'50% 100%', left:'-=455px', scale:1.2, delay:-5})
+	
+	
+	//reposition hen
+	.to(hen, 5, {top:'60%', transformOrigin:'50% 90%', rotation:'400', rotationY:'180', ease:Cubic.easeInOut})
+	.to(hen, 15, {top:'146px', left:'65px', rotation:'-30', ease:Cubic.easeOut})
+	.to(hen, 5, {rotation:'0', rotationY:'0', left:'76px', ease:Elastic.easeOut})
+	
+	
+	.to(cat1, 5, {transformOrigin:'60% 346px', left:'-=455px', scale:1.2, delay:-30})
+	.to(cat1tail, 5, {left:'-=455px', top:'-=80px', scale:1.2, delay:-30})
+	.to(dog, 5, {transformOrigin:'0% 100%', left:'-=455px', scale:1.2, delay:-25})
+	.to(cat1, 5, {left:'+=140px'})
+	
+	//move pond, reintroduce fence & bush
+	.to(pond, 6, {transformOrigin:'0% 0%', left:'50%', marginLeft:'-350px', top:'+=100px', scale:1, delay:-2})
+	.to(fence, 8, {right:'-12%', scale:0.7, delay:-4})
+	.to(bush, 8, {right:'-22px', bottom:'-18px', scale:0.9, delay:-4})
+	
+	//introduce cat 2 & cow / farmer
+	.from(cat2, 7, {left:'+=150px', bottom:'-128px',opacity:0})
+	.from(cow, 7, {left:'+=50px', bottom:'0px',opacity:0})
+	
+	
+	//farmer to stroke & pat cow
+	.from(arm, 7, {opacity:0, delay:-7})
+	.to(cat2, 20, {left:'-=65px', delay:10})
+	.fromTo(arm, 4, {transformOrigin:'60% 10%', rotation:-20}, {rotation:20, ease:Linear.easeNone, repeat:2, yoyo:true, delay:-30})
+	.fromTo(arm, 6, {transformOrigin:'60% 10%', rotationX:0}, {rotationX:-50, ease:Linear.easeNone, repeat:3, yoyo:true, delay:-22})
+	
+	
+	
+	//.to(pond, 6, {transformOrigin:'0% 0%', left:'-=200px', top:'+=200px', scale:0.5})
 	
 		
 	/*t.fromTo(fence,14, {right:'-350px'},{right:'0px'});
@@ -516,7 +546,7 @@ function page1(){
 	*/
 	//{css:{rotationY:0, z:0}}, {css:{rotationX:0,z:-40}, yoyo:true, repeat:-1, delay:i*0.3, ease:Power1.easeInOut});
 	
-	var s = new ScrollScene({triggerElement: '#page1', offset: 400, duration:3000})//triggerElement:'#page1', duration:1500, offset:160})
+	var s = new ScrollScene({triggerElement: '#page1', offset: 400, duration:30000})//triggerElement:'#page1', duration:1500, offset:160})
 		.setTween(t)
 		//.setPin('#cover')
 		.setPin('#page1')

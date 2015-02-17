@@ -177,7 +177,7 @@ border-bottom-right-radius: 7px;}
 	/*#page1 .scene{border:5px solid red; width:200%;height:768px;;position:relative;box-sizing:border-box;}*/
 	
 	#page1 .text{position:absolute;margin:20px;z-index:5;}
-	#page1 .pond{background:url(../img/page1/pond.png);background-size:100% 100%;width:700px;height:270px;position:absolute;top:50%;margin-top:-135px;right:30px;}
+	#page1 .pond{background:url(../img/page1/pond.png);background-size:100% 100%;width:700px;height:270px;position:absolute;top:50%;margin-top:-135px;margin-right:-350px;right:50%;}
 	
 	#page1 .pad1{position:relative;left:70%;top:15%}
 	#page1 .pad2{position:relative;left:44%;top:23%}
@@ -194,7 +194,7 @@ border-bottom-right-radius: 7px;}
 	#page1 .actor{position:absolute;background-size:100% 100%;}
 	#page1 .fence{width:346px;height:452px;background:url(../img/page1/fence.png);right:-346px; top:10%;}
 	
-	#page1 .bush{width:415px; height:317px;background:url(../img/page1/bush.png);right:-415px;bottom:0;}
+	#page1 .bush{width:415px; height:317px;background:url(../img/page1/bush.png);background-size:100% 100%;right:-415px;bottom:0;z-index:2;}
 	#page1 .hen{width:100px;height:114px;background:url(../img/page1/hen.png);background-size:100% 100%;left:50px;top:45%;}
 	#page1 .duck{width:100px;height:90px;background:url(../img/page1/duck.png);background-size:100% 100%;left:50px;transform-origin:50% 80%;}
 	#page1 .goose{width:99px;height:171px;background:url(../img/page1/goose.png);background-size:100% 100%;right:-100px;top:100px;}
@@ -203,8 +203,14 @@ border-bottom-right-radius: 7px;}
 	#page1 .hog{width:400px;height:250px;background:url(../img/page1/hog.png);background-size:100% 100%;bottom:0;left:326px;}
 	#page1 .horse{width:643px;height:435px;background:url(../img/page1/horse.png);background-size:100% 100%;bottom:0;left:20px;}
 	#page1 .dog{width:210px;height:118px;background:url(../img/page1/dog.png);background-size:100% 100%;bottom:0;left:416px;}
-	#page1 .cat1{width:155px;height:87px;background:url(../img/page1/horse-cat.png);background-size:100% 100%;bottom:256px;left:227px;}
+	#page1 .cat1{width:155px;height:87px;background:url(../img/page1/horse-cat.png);background-size:100% 100%;bottom:256px;left:227px;z-index:1}
 	#page1 .cat1tail{width:87px;height:92px;background:url(../img/page1/horse-cat-tail.png);background-size:100% 100%;bottom:182px;left:205px;z-index:1;opacity:0;}
+	
+	#page1 .cat2{width:178px;height:128px;background:url(../img/page1/cow-cat.png);background-size:100% 100%;bottom:80px;left:495px;z-index:1;opacity:1;}
+	#page1 .cow{width:558px;height:411px;background:url(../img/page1/cow-noarm-nocat.png);background-size:100% 100%;bottom:75px;left:352px;z-index:1;opacity:1;}
+	#page1 .arm{width:56px;height:112px;background:url(../img/page1/farmerArm.png);background-size:100% 100%;top:110px;left:308px;z-index:1;opacity:1;}
+	
+	
 	
 /* ==========================================================================
    Helper classes
