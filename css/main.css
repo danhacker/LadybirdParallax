@@ -215,7 +215,8 @@ border-bottom-right-radius: 7px;}
 	#page1 .cow{width:558px;height:411px;background:url(../img/page1/cow-noarm-nocat.png);background-size:100% 100%;bottom:75px;left:352px;z-index:1;opacity:1;}
 	#page1 .arm{width:56px;height:112px;background:url(../img/page1/farmerArm.png);background-size:100% 100%;top:110px;left:308px;z-index:1;opacity:1;}
 	
-	#page1 .text>div div{display:inline-block;}
+	/*#page1 .text>div div{display:inline-block;}*/
+	#page1 .readSection {position:relative;display:inline-block;}
 	
 /* ==========================================================================
    Helper classes
