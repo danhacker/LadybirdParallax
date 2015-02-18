@@ -434,26 +434,14 @@ function page1(){
 		cow = $('#page1 .cow'),
 		arm = $('#page1 .arm'),
 		text = $('#page1 .text'),
-		paragraph = text.find('>div'),
-		words = paragraph.find('div');
+		words = text.find('>div div');
 		//tempTime = new TimelineMax();
 		
 		function bounceWord(e){
-			TweenMax.to(e, 0.1, {scale:1.5, color:'red', ease:Back.easeIn}),
+		TweenMax.to(e, 0.1, {scale:1.5, color:'red', ease:Back.easeIn}),
 			TweenMax.to(e, 0.3, {scale:1, color:'black', ease:Bounce.easeOut, delay: '0.1'})
 		}
-		
-		paragraph.click(function(e){
-			var words = $(this).find('div'),
-				wordTime = parseFloat($(this).data('audiolength')) / words.length;
-			_playAudio.call(this, $('#page1girl')[0]);
-			$.each(words, function(i,o){
-				setTimeout(function(){
-					bounceWord(o);
-				}, (wordTime * i*1000))
-			})
-		});
-		/*words.click(function(e){
+		words.click(function(e){
 			bounceWord(e.target);
 		});
 		
@@ -468,16 +456,15 @@ function page1(){
 		$('body').mouseup(function(e){
 			console.log('page1 mouseUp');
 			text.off('mouseover')
-		});*/
+		});
 		
 
-	t.fromTo(hen, 2, {left:'-150px'},{left:'50px',top:'50%', ease:Cubic.easeOut})
-	 .staggerFromTo(text.find('.p1 div'), 3, {opacity:0, rotation:'-90'},{opacity:1,rotation:'0'}, 0.2)
+	t.fromTo(hen, 2, {left:'-150px'},{left:'50px',top:'50%', ease:Cubic.easeOut});
 	//cluck
-	 .add(commonTweens.bounceOut(hen).tweens, '+=1.5','sequence', 0.2)
-	 .add(function(){
+	t.add(commonTweens.bounceOut(hen).tweens, '+=1.5','sequence', 0.2);
+	t.add(function(){
 		_playAudio.call(hen, $('#animalSounds')[0]);
-	  },'-=1')
+	},'-=1')
 	
 	//hen exit stage left
 	.to(hen, 2, {left:'-150px'}, '+=2')
@@ -487,14 +474,13 @@ function page1(){
 	
 	//duck drop from stage top
 	
-	.staggerFromTo(text.find('.p2 .section:eq(0) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
-	.fromTo(duck, 1.5, {top:'-150%', opacity:0},{top:'30px', opacity:1, ease:Quint.easeIn})
+	t.fromTo(duck, 1.5, {top:'-150%', opacity:0},{top:'30px', opacity:1, ease:Quint.easeIn})
 	.addCallback(function(){
 
-		/*setTimeout(function(){
+		setTimeout(function(){
 			_playAudio.call(duck, $('#animalSounds')[0]);
 			new TimelineMax().add(commonTweens.bounceOut(duck).tweens, '-=9','sequence', 0.05);
-		},1500);*/
+		},1500);
 		TweenMax.to(duck, 1, {rotationY:'+=180', yoyo:true, repeat:-1, repeatDelay:9, delay:10})
 		TweenMax.to(duck, 10, {left:'+=180px', ease:Linear.easeNone, yoyo:true, repeat:-1});
 		TweenMax.fromTo(duck, 2, {rotation:'+=10'},{rotation:'-=10', yoyo:true, repeat:-1, ease:Sine.easeInOut},'-=10')
@@ -502,19 +488,18 @@ function page1(){
 		TweenMax.staggerFromTo(pads, 3, {x:'-=10'}, {x:'+=10', repeat:-1, yoyo:true}, 0.5);
 		TweenMax.staggerFromTo(leftFish, 3, {x:'+=10', y:'+=5',opacity:0.3}, {x:'-=10', y:'-=3', opacity:0.7, repeat:-1, yoyo:true}, 0.8);
 		TweenMax.staggerFromTo(rightFish, 3, {x:'-=15', y:'-=2', opacity:0.4}, {x:'+=15', y:'+=6', opacity:0.6, repeat:-1, yoyo:true}, 1.3);
-	})
+	});
 		
-	 .to(pond, 3, {right:'60%'}, '+=6')
+	t.to(pond, 3, {right:'60%'}, '+=6')
 	
 	//show fence, goose & bush
-	 .staggerFromTo(text.find('.p2 .section:eq(1) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
 	 .to(fence, 7, {right:'-90px'},'-=0.25')
 	 .fromTo(bush, 5, {right:'-415px', bottom:'-317px'},{right:'0', bottom:'0', ease:Bounce.easeOut}, '-=8.5')
 	 .to(goose, 4, {right:'+=220'})
-	 /*.addCallback(function(){
+	 .addCallback(function(){
 		_playAudio.call(goose, $('#animalSounds')[0])
 	 }, '+=0.75')
-	 */
+	 
 	 //remove the bush, fence and
 	 .to(bush, 1, {right:'-415px', bottom:'-20%'}, '+=3.5')
 	 .to(fence, 2, {right:'-100%'}, '-=1')
@@ -523,18 +508,12 @@ function page1(){
 	 .to(pond, 4, {right:'-350px', top:'160px'}, '-=2')
 	 
 	//introduce sheep, hog, horse, dog and cat1
-		
-	  .staggerFromTo(text.find('.p3 .section:eq(1) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
-	  .from(sheep, 2.5, {opacity:0, transformOrigin:'50% 400px', rotation:-40})
-	  .staggerFromTo(text.find('.p3 .section:eq(2) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
-	  .from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=50px', ease:Bounce.easeOut})
-	  .from(horse,5.5,{opacity:0, left:'-=643px', ease:Quart.easeInOut})
-	  .staggerFromTo(text.find('.p4 .section:eq(1) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
-	  .fromTo(hen, 6, {top:'100%'},{left:'493px',top:'231px'})
-	  .staggerFromTo(text.find('.p4 .section:eq(2) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
-	  .from(dog, 10, {opacity:0, transformOrigin:'50% 100%', scale:0, ease:Elastic.easeOut})
-	  .staggerFromTo(text.find('.p5 .section:eq(1) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
-	  .from(cat1, 5, {opacity:0, bottom:'182px', ease: Circ.easeIn})
+	.from(sheep, 2.5, {opacity:0, transformOrigin:'50% 400px', rotation:-40})
+	.from(hog,3.5,{opacity:0, bottom:'-=250px',left:'-=50px', ease:Bounce.easeOut})
+	.from(horse,5.5,{opacity:0, left:'-=643px', ease:Quart.easeInOut})
+	.fromTo(hen, 6, {top:'100%'},{left:'493px',top:'231px'})
+	.from(dog, 10, {opacity:0, transformOrigin:'50% 100%', scale:0, ease:Elastic.easeOut})
+	.from(cat1, 5, {opacity:0, bottom:'182px', ease: Circ.easeIn})
 	//wag the cat's tail
 	.set(cat1tail, {opacity:1, transformOrigin:'20% 0%'})
 	.fromTo(cat1tail, 3, {rotation:-45, rotationY:40}, {rotation:10, rotationY:0})
@@ -553,6 +532,7 @@ function page1(){
 	.to(hen, 15, {top:'146px', left:'65px', rotation:'-30', ease:Cubic.easeOut})
 	.to(hen, 5, {rotation:'0', rotationY:'0', left:'76px', ease:Elastic.easeOut})
 	
+	
 	.to(cat1, 5, {transformOrigin:'60% 346px', left:'-=455px', scale:1.2, delay:-30})
 	.to(cat1tail, 5, {left:'-=455px', top:'-=80px', scale:1.2, delay:-30})
 	.to(dog, 5, {transformOrigin:'0% 100%', left:'-=455px', scale:1.2, delay:-25})
@@ -564,10 +544,7 @@ function page1(){
 	.to(bush, 8, {right:'-22px', bottom:'-18px', scale:0.9, delay:-4})
 	
 	//introduce cat 2 & cow / farmer
-	.staggerFromTo(text.find('.p6 .section:eq(1) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
 	.from(cat2, 7, {left:'+=150px', bottom:'-128px',opacity:0})
-	
-	.staggerFromTo(text.find('.p6 .section:eq(2) div'), 3, {opacity:0, rotation:'-90'},{opacity:1, rotation:'0'}, 0.2)
 	.from(cow, 7, {left:'+=50px', bottom:'0px',opacity:0})
 	
 	
@@ -576,7 +553,7 @@ function page1(){
 	.to(cat2, 20, {left:'-=65px', delay:10})
 	.fromTo(arm, 4, {transformOrigin:'60% 10%', rotation:-20}, {rotation:20, ease:Linear.easeNone, repeat:2, yoyo:true, delay:-30})
 	.fromTo(arm, 6, {transformOrigin:'60% 10%', rotationX:0}, {rotationX:-50, ease:Linear.easeNone, repeat:3, yoyo:true, delay:-22})
-		
+	
 	
 	
 	//.to(pond, 6, {transformOrigin:'0% 0%', left:'-=200px', top:'+=200px', scale:0.5})
