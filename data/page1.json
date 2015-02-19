@@ -1,0 +1,130 @@
+{
+		"lines":[
+			{
+				"text": "Once upon a farm lived a fat red hen",
+				"audio":{
+					"start":0,
+					"length":2.93
+				},
+				"sections":[
+					{
+						"text": "Once upon a farm lived a fat red hen",
+						"audio":{
+							"start":0,
+							"length":"2.93"
+						},
+						"words":[
+							{
+								"word":"Once",
+								"audio":{"start":0,"length":0.41}
+							},
+							{
+								"word": "upon",
+								"audio":{"start":0.41, "length":0.4}
+							},
+							{
+								"word": "a",
+								"audio":{"start":0.81, "length":0.18}
+							},
+							{	
+								"word": "farm",
+								"audio":{"start":0.99, "length":0.34}
+							},
+							{	
+								"word": "lived",
+								"audio":{"start":1.33, "length":0.29}
+							},
+							{
+								"word": "a",
+								"audio":{"start":1.62, "length":0.21}
+							},
+							{	
+								"word": "fat",
+								"audio":{"start":1.83, "length":0.34}
+							},
+							{
+								"word": "red",
+								"audio":{"start":2.17, "length":0.42}
+							},
+							{
+								"word": "hen",
+								"audio":{"start":2.59, "length":0.34}
+							}
+						]
+					}
+				]
+			},
+			{
+				"text":"A duck in a pond and a goose in a pen",
+				"audio":{
+					"start":0,
+					"length":1
+				},
+				"sections":[
+					{
+						"text":"A duck in a pond",
+						"audio":{
+							"start":2.92,
+							"length":1
+						},
+						"words":[
+							{
+								"word":"a",
+								"audio":{"start":2.93,"length":1}
+							},
+							{
+								"word":"duck",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"in",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"a",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"pond",
+								"audio":{"start":0,"length":1}
+							}
+						]
+					},
+					{
+						"text":"and a goose in a pen",
+						"audio":{
+							"start":0,
+							"length":1
+						},
+						"words":[
+							{
+								"word":"and",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"a",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"goose",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"a",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"a",
+								"audio":{"start":0,"length":1}
+							},
+							{
+								"word":"pen",
+								"audio":{"start":0,"length":1}
+							}
+						]
+					}
+				]
+			}
+		]
+	
+}
