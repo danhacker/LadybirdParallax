@@ -11,7 +11,7 @@
 						"text": "Once upon a farm lived a fat red hen",
 						"audio":{
 							"start":0,
-							"length":"2.93"
+							"length":2.93
 						},
 						"words":[
 							{
@@ -20,11 +20,11 @@
 							},
 							{
 								"word": "upon",
-								"audio":{"start":0.41, "length":0.4}
+								"audio":{"start":0.48, "length":0.35}
 							},
 							{
 								"word": "a",
-								"audio":{"start":0.81, "length":0.18}
+								"audio":{"start":0.81, "length":0.13}
 							},
 							{	
 								"word": "farm",
@@ -36,7 +36,7 @@
 							},
 							{
 								"word": "a",
-								"audio":{"start":1.62, "length":0.21}
+								"audio":{"start":1.65, "length":0.21}
 							},
 							{	
 								"word": "fat",
@@ -57,74 +57,184 @@
 			{
 				"text":"A duck in a pond and a goose in a pen",
 				"audio":{
-					"start":0,
-					"length":1
+					"start":2.968,
+					"length":3.16
 				},
 				"sections":[
 					{
 						"text":"A duck in a pond",
 						"audio":{
-							"start":2.92,
-							"length":1
+							"start":2.968,
+							"length": 1.407
 						},
 						"words":[
 							{
 								"word":"a",
-								"audio":{"start":2.93,"length":1}
+								"audio":{"start":2.968,"length":0.166}
 							},
 							{
 								"word":"duck",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":3.067,"length":0.467}
 							},
 							{
 								"word":"in",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":3.533,"length":0.241}
 							},
 							{
 								"word":"a",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":3.77,"length":0.164}
 							},
 							{
 								"word":"pond",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":3.939,"length":0.436}
 							}
 						]
 					},
 					{
 						"text":"and a goose in a pen",
 						"audio":{
-							"start":0,
-							"length":1
+							"start":4.421,
+							"length":1.728
 						},
 						"words":[
 							{
 								"word":"and",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":4.421,"length":0.217}
 							},
 							{
 								"word":"a",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":4.629,"length":0.184}
 							},
 							{
 								"word":"goose",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":4.813,"length":0.459}
+							},
+							{
+								"word":"in",
+								"audio":{"start":5.268,"length":0.218}
 							},
 							{
 								"word":"a",
-								"audio":{"start":0,"length":1}
-							},
-							{
-								"word":"a",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":5.488,"length":0.174}
 							},
 							{
 								"word":"pen",
-								"audio":{"start":0,"length":1}
+								"audio":{"start":5.568,"length":0.491}
 							}
 						]
 					}
 				]
 			}
+			,
+			{
+				"text":"A woolly sheep, a hairy hog",
+				"audio":{
+					"start":6.137,
+					"length":2.372
+				},
+				"sections":[
+					{
+						"text":"A wolly sheep,",
+						"audio":{
+							"start":6.137,
+							"length":1.042
+						},
+						"words":[
+							{
+								"word":"a",
+								"audio":{"start":6.137,"length":0.112}
+							},
+							{
+								"word":"woolly",
+								"audio":{"start":6.285,"length":0.417}
+							},
+							{
+								"word":"sheep",
+								"audio":{"start":6.707,"length":0.476}
+							}
+						]
+					},
+					{
+						"text":"a hairy hog",
+						"audio":{
+							"start":7.182,
+							"length":1.331
+						},
+						"words":[
+							{
+								"word":"a",
+								"audio":{"start":7.182,"length":0.084}
+							},
+							{
+								"word":"hairy",
+								"audio":{"start":7.339,"length":0.617}
+							},
+							{
+								"word":"hog",
+								"audio":{"start":7.994,"length":0.518}
+							}
+						]
+					}
+				]
+			}
+			,
+			{
+				"text":"A handsome horse and a dainty dog",
+				"audio":{
+					"start":8.751,
+					"length":2.548
+				},
+				"sections":[
+					{
+						"text":"A handsome horse,",
+						"audio":{
+							"start":8.751,
+							"length":1.129
+						},
+						"words":[
+							{
+								"word":"A",
+								"audio":{"start":8.751,"length":0.164}
+							},
+							{
+								"word":"handsome",
+								"audio":{"start":8.807,"length":0.587}
+							},
+							{
+								"word":"horse",
+								"audio":{"start":9.496,"length":0.384}
+							}
+						]
+					},
+					{
+						"text":"and a dainty dog",
+						"audio":{
+							"start":9.872,
+							"length":1.366
+						},
+						"words":[
+							{
+								"word":"and",
+								"audio":{"start":9.872,"length":0.147}
+							},
+							{
+								"word":"a",
+								"audio":{"start":10.013,"length":0.194}
+							},
+							{
+								"word":"dainty",
+								"audio":{"start":10.199,"length":0.495}
+							},
+							{
+								"word":"dog",
+								"audio":{"start":10.697,"length":0.540}
+							}
+						]
+					}
+				]
+			}
+			
+			
 		]
 	
 }

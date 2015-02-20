@@ -1,6 +1,7 @@
 var controller = new ScrollMagic();
 		
 		eggPoints = [];
+		audioTimeout = null,
 		points = []; //holds our series of x/y values for anchors and control points,
 		commonTweens = {
 			bounceOut : function(el){
@@ -51,14 +52,15 @@ var controller = new ScrollMagic();
 	function _playAudio(audio){
 		var
 			$this = $(this),
-			start = $this.data('audiostart'),
-			length = $this.data('audiolength') * 1000,
+			start = $this.data('audiostart') || ($this.data('audio') ? $this.data('audio').start : NaN),
+			length = $this.data('audiolength') * 1000 || ($this.data('audio') ? $this.data('audio').length * 1000 : NaN),
 			hasAudio = !isNaN(start) && !isNaN(length);
 		if (hasAudio){
-			//audio.currentTime = start;
-			audio.currentTime  =
+			audio.pause();
+			window.clearTimeout(audioTimeout);
+			audio.currentTime  = start
 			audio.play();
-			setTimeout(function(){
+			audioTimeout = setTimeout(function(){
 				audio.pause();
 			}, length);
 		}
@@ -248,7 +250,7 @@ function cover(){
 	}
 				
 	$('#cover .animal').click(function(callback){
-		_pressAnimate.call(this, coTweens.bounce(this), function(){
+		_pressAnimate.call(this, commonTweens.bounceOut(this), function(){
 			if (callback === 'function'){
 				callback();
 			}
@@ -442,44 +444,78 @@ function page1(){
 		$.get('../data/page1.json', function(data){
 			audioData = data;
 			
-			$.each(readline, function(i,o){
-				
+			$.each(readline, function(i, line){
 				try{
-					console.log(i, o, audioData.lines[i].audio);
-					$.data(o, 'audio', audioData.lines[i].audio)
-					//$.data(o, 'audiolength', audioData.lines[i].audio.len);
-					console.log(i, o, audioData.lines[i].audio.start, audioData.lines[i].audio.length);
-				} catch(e){console.error(e);}
-				
+					console.log('readLine:', line);
+					$.data(line, 'audio', audioData.lines[i].audio);
+					
+					$.each($(line).find('.readSection'), function(k, section){
+						console.log('readSection:', section);
+						$.data(section, 'audio', audioData.lines[i].sections[k].audio);
+						
+						$.each($(section).find('.word'), function (j, word){
+							console.log('word:', word);
+							//console.log('word:', audioData.lines[i].sections[k].words[j].word, audioData.lines[i].sections[k.words[j].audio);
+							$.data(word, 'audio', audioData.lines[i].sections[k].words[j].audio);
+						});
+						
+					});
+					
+					
+				} catch(e){
+					console.error("Sorry, we'll not be able to read the story to you", e);
+					//$(text).find('*').removeData();
+					//return false;
+				}
 			});
 		});
-		//line = text.find('>div'),
-		//readSection = line.find('>.readSection'),
-		//word = readSection.find('>div');
-		//tempTime = new TimelineMax();
 		
-		function bounceWord(e){
-			//TweenMax.to(e, 0.1, {scale:1.5, color:'red', ease:Back.easeIn}),
-			//TweenMax.to(e, 0.3, {scale:1, color:'black', ease:Bounce.easeOut, delay: '0.1'})
-			console.log($(e).find('.char'));
-			TweenMax.staggerFromTo($(e).find('.char'), 0.2, {transformOrigin:'50% 100%', transform:'scaleX(1) scaleY(1)', color:'black'}, {transform:'scaleX(1) scaleY(1.3)', color:'red', ease:Quint.easeInOut, yoyo:true, repeat:1}, 0.08)
-			//.staggerFromTo(text.find('.p1 div'), 3, {opacity:0, rotation:'-90'},{opacity:1,rotation:'0'}, 0.2)
+		function bounceWord(e, immediate){
+		
+			function bouncy(word, offset, immediate){
+				console.log('bouncy', word);
+				var data = $(word).data('audio');
+				console.log('data:', data);
+				if (data == null) return false;
+				
+				offset = offset || 0;
+				data.chars = $(word).find('.char');
+				start = immediate ? 0 : data.start-offset;	
+				TweenMax.killTweensOf(data.chars);
+				
+				console.log(data);
+				TweenMax.staggerFromTo(data.chars, 0.07, {transformOrigin:'50% 50%', transform:'scaleX(1) scaleY(1)', color:'black', ease:Elastic.easeIn}, {transform:'scaleX(1) scaleY(1.3)', color:'red', ease:Quint.easeInOut, yoyo:true, repeat:1, repeatDelay:(data.length/data.chars.length), delay: start}, (data.length/data.chars.length))
+			}
+			
+			if ($(e).is('.word')){
+				console.log('isWord');
+				bouncy($(e), true);
+			} else{
+				console.log('isline');
+				try{
+				var offset = $(e).find('.word:first').data('audio').start;
+				$.each($(e).find('.word'), function(i, word){
+					bouncy(word, offset);
+				});
+				}
+				catch(e){}
+			}
 		}
 		
-		
+		// readline.find('.word').click(function(e){
+			// var $this = $(this),
+				// lineNo = $this.parent().prevAll().length;
+				// //words = $this.find('.word'),
+				// wordTime = parseFloat($this.data('audiolength'));
+			// _playAudio.call(this, $('#page1girl')[0]);
+			// bounceWord($this);
+		// });
 		
 		readline.click(function(e){
 			var $this = $(this),
 				lineNo = $this.prevAll().length;
-			
-			// console.log('this', $this);
-			// console.log('siblings:', $this.siblings());
-			// console.log('line#:', lineNo);
-			// console.log('audioData:', audioData.lines[lineNo]);
-			
 				words = $this.find('.word'),
 				wordTime = parseFloat($this.data('audiolength')) / words.length;
-				
 			_playAudio.call(this, $('#page1girl')[0]);
 			bounceWord($this);
 		});
