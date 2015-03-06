@@ -200,7 +200,7 @@ border-bottom-right-radius: 7px;}
 	#page1 .fence{width:346px;height:452px;background:url(../img/page1/fence.png);right:-346px; top:10%;}
 	
 	#page1 .bush{width:415px; height:317px;background:url(../img/page1/bush.png);background-size:100% 100%;right:-415px;bottom:0;z-index:2;}
-	#page1 .hen{width:100px;height:114px;background:url(../img/page1/hen.png);background-size:100% 100%;left:50px;top:45%;}
+	#page1 .hen{width:100px;height:114px;background:url(../img/page1/hen.png);background-size:100% 100%;left:50%;top:50%;margin-left:-50px;margin-top:-57px;}
 	#page1 .duck{width:100px;height:90px;background:url(../img/page1/duck.png);background-size:100% 100%;left:50px;transform-origin:50% 80%;}
 	#page1 .goose{width:99px;height:171px;background:url(../img/page1/goose.png);background-size:100% 100%;right:-100px;top:100px;}
 	#page1 .waves{width:355px;height:96px;background:url(../img/page1/pond-waves.png);background-size:100% 100%;top:98px;right:309px;opacity:0.85;}
@@ -208,8 +208,8 @@ border-bottom-right-radius: 7px;}
 	#page1 .hog{width:400px;height:250px;background:url(../img/page1/hog.png);background-size:100% 100%;bottom:0;left:326px;}
 	#page1 .horse{width:643px;height:435px;background:url(../img/page1/horse.png);background-size:100% 100%;bottom:0;left:20px;}
 	#page1 .dog{width:210px;height:118px;background:url(../img/page1/dog.png);background-size:100% 100%;bottom:0;left:416px;}
-	#page1 .cat1{width:155px;height:87px;background:url(../img/page1/horse-cat.png);background-size:100% 100%;bottom:256px;left:227px;z-index:1}
-	#page1 .cat1tail{width:87px;height:92px;background:url(../img/page1/horse-cat-tail.png);background-size:100% 100%;bottom:182px;left:205px;z-index:1;opacity:0;}
+	#page1 .cat1{width:155px;height:87px;background:url(../img/page1/horse-cat.png);background-size:100% 100%;bottom:256px;left:233px;z-index:1;}
+	#page1 .cat1tail{width:87px;height:92px;background:url(../img/page1/horse-cat-tail.png);background-size:100% 100%;position:relative;top:69px;left:-21px;z-index:1;}
 	
 	#page1 .cat2{width:178px;height:128px;background:url(../img/page1/cow-cat.png);background-size:100% 100%;bottom:80px;left:495px;z-index:1;opacity:1;}
 	#page1 .cow{width:558px;height:411px;background:url(../img/page1/cow-noarm-nocat.png);background-size:100% 100%;bottom:75px;left:352px;z-index:1;opacity:1;}
